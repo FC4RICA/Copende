@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { HTMLEditor, CSSEditor } from "../components/Editors/Editors.jsx";
 import styles from "./PlayPage.module.css";
 import { useDebounce } from "../utils/useDebounce.jsx";
-import SplitPane, { Pane, SashContent } from 'split-pane-react';
-import 'split-pane-react/esm/themes/default.css';
+import 'react-reflex/styles.css'
+import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex'
 
 
 const PlayPage = () => {
@@ -38,23 +38,33 @@ const PlayPage = () => {
   return (
     <>
       <div className={styles.paneContainer}>
-        <SplitPane
-          split='vertical'
-          sizes={sizes}
-          onChange={(sizes) => setSizes(sizes)}
-        >
-          <Pane minSize={16}>
+        <ReflexContainer orientation="vertical">
+          <ReflexElement className={styles.reflexElement}>
             <HTMLEditor value={htmlValue} onChange={setHtmlValue} />
-          </Pane>
-          <Pane>
+          </ReflexElement>
+
+          <ReflexSplitter/>
+
+          <ReflexElement className={styles.reflexElement}>
             <CSSEditor value={cssValue} onChange={setCssValue} />
-          </Pane>
-          <Pane>
-            <div>
+          </ReflexElement>
+
+          <ReflexSplitter/>
+
+          <ReflexElement className={styles.reflexElement}>
+            <div className={styles.previewContainer}>
               <iframe srcDoc={outputValue} className={styles.preview}/>
             </div>
-          </Pane>
-        </SplitPane>
+          </ReflexElement>
+
+          <ReflexSplitter/>
+
+          <ReflexElement className={styles.reflexElement}>
+            <div>
+              example
+            </div>
+          </ReflexElement>
+        </ReflexContainer>
       </div>
     </>
   )
