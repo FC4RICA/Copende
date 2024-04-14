@@ -1,21 +1,44 @@
 .paneContainer {
   width: 100%;
   height: 100%;
-  background-color: #8C9A9E;
+  background-color: #313131;
 }
 
-.paneContainer .reflexElement {
+.paneContainer, .reflexElement {
   display: flex;
   overflow-y: hidden !important;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.editorTitleContainer {
+  display: flex;
+}
+.editorTitle {
+  background-color: #1e1e1e;
+  padding: 2px 12px;
+  color: white;
+}
+
+.reflexSplitter {
+  width: auto !important;
+  background-color: #eeeeee !important;
+  border-left: 1px solid #31363F !important;
+  border-right: 1px solid #31363F !important;
+  color: black;
 }
 
 .reflexHandle {
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  padding: 8px 2px;
+  font-size: 14px;
 }
+
 
 .previewContainer {
   padding: 12px;
+  height: 100%;
 }
 
 .preview {

@@ -40,20 +40,41 @@ const PlayPage = () => {
     <>
       <div className={styles.paneContainer}>
         <ReflexContainer orientation='vertical'>
+          <ReflexSplitter propagate={true} className={styles.reflexSplitter} style={{pointerEvents: 'none'}}>
+            <ReflexHandle className={styles.reflexHandle}>
+              HTML
+            </ReflexHandle>
+          </ReflexSplitter>
+
           <ReflexElement className={styles.reflexElement}>
+            <div className={styles.editorTitleContainer}>
+              <div className={styles.editorTitle}>
+                HTML
+              </div>
+            </div>
             <HTMLEditor value={htmlValue} onChange={setHtmlValue} />
           </ReflexElement>
 
-          <ReflexSplitter propagate={true} />
-
-          <ReflexElement className={styles.reflexElement} minSize={16}>
+          <ReflexSplitter propagate={true} className={styles.reflexSplitter}>
             <ReflexHandle className={styles.reflexHandle}>
               CSS
             </ReflexHandle>
+          </ReflexSplitter>
+
+          <ReflexElement className={styles.reflexElement}>
+          <div className={styles.editorTitleContainer}>
+              <div className={styles.editorTitle}>
+                CSS
+              </div>
+            </div>
             <CSSEditor value={cssValue} onChange={setCssValue} />
           </ReflexElement>
 
-          <ReflexSplitter propagate={true} />
+          <ReflexSplitter propagate={true} className={styles.reflexSplitter}>
+            <ReflexHandle className={styles.reflexHandle}>
+              PREVIEW
+            </ReflexHandle>
+          </ReflexSplitter>
 
           <ReflexElement className={styles.reflexElement}>
             <div className={styles.previewContainer}>
@@ -61,11 +82,15 @@ const PlayPage = () => {
             </div>
           </ReflexElement>
 
-          <ReflexSplitter propagate={true} />
+          <ReflexSplitter propagate={true} className={styles.reflexSplitter}>
+            <ReflexHandle className={styles.reflexHandle}>
+              TARGET
+            </ReflexHandle>
+          </ReflexSplitter>
 
           <ReflexElement className={styles.reflexElement}>
-            <div>
-              example
+            <div className={styles.previewContainer}>
+              <iframe srcDoc={outputValue} className={styles.preview}/>
             </div>
           </ReflexElement>
         </ReflexContainer>
