@@ -1,11 +1,17 @@
 .paneContainer {
   width: 100%;
-  height: 100vh;
-  background-color: darkslategrey;
+  height: 100%;
+  background-color: #8C9A9E;
 }
 
 .paneContainer .reflexElement {
+  display: flex;
   overflow-y: hidden !important;
+}
+
+.reflexHandle {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 .previewContainer {

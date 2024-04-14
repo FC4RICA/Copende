@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
-import { HTMLEditor, CSSEditor } from "../components/Editors/Editors.jsx";
-import styles from "./PlayPage.module.css";
-import { useDebounce } from "../utils/useDebounce.jsx";
+import { useEffect, useState } from 'react';
+import { HTMLEditor, CSSEditor } from '../components/Editors/Editors.jsx';
+import { useDebounce } from '../utils/useDebounce.jsx';
 import 'react-reflex/styles.css'
-import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex'
+import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 'react-reflex'
+
+import styles from './PlayPage.module.css';
 
 
 const PlayPage = () => {
-  const [htmlValue, setHtmlValue] = useState("");
-  const [cssValue, setCssValue] = useState("");
-  const [outputValue, setOutputValue] = useState("");
+  const [htmlValue, setHtmlValue] = useState('');
+  const [cssValue, setCssValue] = useState('');
+  const [outputValue, setOutputValue] = useState('');
 
   // use debounce to change the debouced value only when normal value stop changing for 1 s
   const deboucedHtml = useDebounce(htmlValue, 500);
@@ -38,18 +39,21 @@ const PlayPage = () => {
   return (
     <>
       <div className={styles.paneContainer}>
-        <ReflexContainer orientation="vertical">
+        <ReflexContainer orientation='vertical'>
           <ReflexElement className={styles.reflexElement}>
             <HTMLEditor value={htmlValue} onChange={setHtmlValue} />
           </ReflexElement>
 
-          <ReflexSplitter/>
+          <ReflexSplitter propagate={true} />
 
-          <ReflexElement className={styles.reflexElement}>
+          <ReflexElement className={styles.reflexElement} minSize={16}>
+            <ReflexHandle className={styles.reflexHandle}>
+              CSS
+            </ReflexHandle>
             <CSSEditor value={cssValue} onChange={setCssValue} />
           </ReflexElement>
 
-          <ReflexSplitter/>
+          <ReflexSplitter propagate={true} />
 
           <ReflexElement className={styles.reflexElement}>
             <div className={styles.previewContainer}>
@@ -57,7 +61,7 @@ const PlayPage = () => {
             </div>
           </ReflexElement>
 
-          <ReflexSplitter/>
+          <ReflexSplitter propagate={true} />
 
           <ReflexElement className={styles.reflexElement}>
             <div>

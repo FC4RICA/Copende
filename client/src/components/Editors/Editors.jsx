@@ -1,29 +1,19 @@
-import ace from 'ace-builds/src-noconflict/ace';
-import AceEditor from "react-ace";
+import Editor from "@monaco-editor/react";
+
 import styles from "./Editors.module.css";
 
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/mode-html";
-import "ace-builds/src-noconflict/mode-css";
-import "ace-builds/src-noconflict/theme-twilight";
-import "ace-builds/src-noconflict/ext-language_tools";
-import 'ace-builds/src-noconflict/ext-beautify';
+
 
 
 export const HTMLEditor = (props) => {
-  return <Editor mode={"html"} title={"HTML"} {...props} />;
+  return <CodeEditor mode={"html"} title={"HTML"} {...props} />;
 }
 
 export const CSSEditor = (props) => {
-  return <Editor mode={"css"} title={"CSS"} {...props} />;
+  return <CodeEditor mode={"css"} title={"CSS"} {...props} />;
 }
 
-
-const Editor = ({ mode, title, value, onChange }) => {
-  return (
-    <div className={styles.editorContainer}>
-      <div className={styles.editorTitle}>{title}</div>
-      <AceEditor
+/*<AceEditor
         mode={mode}
         theme="twilight"
         name={title}
@@ -41,7 +31,25 @@ const Editor = ({ mode, title, value, onChange }) => {
           showLineNumbers: true,
           tabSize: 2,
           useWorker: false, 
-      }}/>
+      }}/> */
+
+const CodeEditor = ({ mode, title, value, onChange }) => {
+  return (
+    <div className={styles.editorContainer}>
+      <div className={styles.editorTitle}>{title}</div>
+      <Editor
+      height='100%'
+      width='100%'
+      language={mode}
+      theme='vs-dark'
+      value={value}
+      onChange={onChange}
+      options={{
+        minimap: {
+          enabled: false,
+        },
+      }}
+    />
     </div>
   )
 }
