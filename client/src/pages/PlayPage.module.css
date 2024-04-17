@@ -1,7 +1,7 @@
 .paneContainer {
   width: 100%;
   height: 100%;
-  background-color: #313131;
+  background-color: var(--bgcolor1);
 }
 
 .paneContainer, .reflexElement {
@@ -11,21 +11,25 @@
   flex-wrap: nowrap;
 }
 
+.reflexElement {
+  overflow-y: visible !important;
+}
+
 .editorTitleContainer {
   display: flex;
 }
 .editorTitle {
-  background-color: #1e1e1e;
+  background-color: var(--bgcolor2);
   padding: 2px 12px;
-  color: white;
+  color: var(--white);
+  overflow-x: hidden;
 }
 
 .reflexSplitter {
   width: auto !important;
-  background-color: #eeeeee !important;
-  border-left: 1px solid #31363F !important;
-  border-right: 1px solid #31363F !important;
-  color: black;
+  border: none !important;
+  background-color: var(--color1) !important;
+  color: var(--black);
 }
 
 .reflexHandle {
@@ -46,5 +50,5 @@
   width: 400px;
   height: 300px;
   pointer-events: none;
-  background-color: white;
+  background-color: var(--white);
 }

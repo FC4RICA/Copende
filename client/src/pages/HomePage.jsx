@@ -1,9 +1,11 @@
-
+import styles from './HomePage.module.css'
 
 const HomePage = () => {
   return (
     <>
-      homepage
+      <div className={styles.contentContaniner}>
+
+      </div>
     </>
   )
 }

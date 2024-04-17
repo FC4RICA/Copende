@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { HTMLEditor, CSSEditor } from '../components/Editors/Editors.jsx';
+import { HTMLEditor, CSSEditor } from '../components/shared/Editors.jsx';
 import { useDebounce } from '../utils/useDebounce.jsx';
 import 'react-reflex/styles.css'
 import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 'react-reflex'

@@ -1,18 +1,20 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
-import Navbar from './navigation/Navbar';
+import Navbar from './components/layout/Navbar';
 import HomePage from './pages/HomePage';
 import ErrorPage from './pages/ErrorPage';
 import ProfilePage from './pages/ProfilePage';
 import PlayPage from './pages/PlayPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+import Footer from './components/layout/Footer';
 
 const Layout = () => {
   return(
     <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
       <Navbar />
-      <div style={{height: '100%'}}>
-        <Outlet />
-      </div>
+      <Outlet />
+      <Footer />
     </div>
   )
 }
@@ -24,7 +26,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <HomePage/>,
+        element: <HomePage />,
+      },
+      {
+        path: '/signin',
+        element: <SignInPage />,
+      },
+      {
+        path: '/signup',
+        element: <SignUpPage />,
       },
       {
         path: '/play',

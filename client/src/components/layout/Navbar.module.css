@@ -1,0 +1,31 @@
+.navContainer {
+  background-color: var(--bgcolor2);
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid var(--color4);
+  align-items: center;
+}
+
+.linkContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.linkContainer a{
+  color: var(--white);
+  text-decoration: none;
+}
+
+
+.profileContainer {
+  display: flex;
+}
+
+.signInContainer {
+  display: flex;
+  gap: 8px;
+}
