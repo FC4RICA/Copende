@@ -1,4 +1,27 @@
-.contentContaniner {
-  background-color: var(--bgcolor1);
+.contentContaniner{
+  background-image:  radial-gradient(#ffffff30 0.5px, transparent 0.5px), radial-gradient(#ffffff30 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0,10px 10px;
   height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  flex: 1;
+}
+
+.welcomeContainer {
+  display: flex;
+  padding: 2rem;
+  border: 1px solid var(--color4);
+  border-radius: 8px;
+  background-color: var(--bgcolor1);
+}
+
+.welcomeContainer .content h2{
+  margin-bottom: 0.8rem;
+  color: var(--color1);
+}
+.welcomeContainer .content p{
+  margin-bottom: 1.5rem;
 }

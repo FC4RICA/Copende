@@ -11,11 +11,11 @@ import Footer from './components/layout/Footer';
 
 const Layout = () => {
   return(
-    <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+    <>
       <Navbar />
       <Outlet />
       <Footer />
-    </div>
+    </>
   )
 }
 

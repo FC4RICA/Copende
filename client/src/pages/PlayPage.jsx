@@ -39,7 +39,7 @@ const PlayPage = () => {
   return (
     <>
       <div className={styles.paneContainer}>
-        <ReflexContainer orientation='vertical'>
+        <ReflexContainer orientation='vertical' className={styles.reflexContainer}>
           <ReflexSplitter propagate={true} className={styles.reflexSplitter} style={{pointerEvents: 'none'}}>
             <ReflexHandle className={styles.reflexHandle}>
               HTML

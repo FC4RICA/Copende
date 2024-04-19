@@ -2,9 +2,16 @@
   width: 100%;
   height: 100%;
   background-color: var(--bgcolor1);
+  display: flex;
+  overflow: hidden;
+  flex: 1;
 }
 
-.paneContainer, .reflexElement {
+.reflexContainer {
+  height: auto;
+}
+
+.reflexElement {
   display: flex;
   overflow-y: hidden !important;
   flex-direction: column;

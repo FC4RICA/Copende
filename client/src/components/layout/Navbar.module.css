@@ -13,11 +13,18 @@
 .linkContainer {
   display: flex;
   gap: 16px;
+  align-items: center;
 }
 
-.linkContainer a{
-  color: var(--white);
+.logo {
+  font-size:xx-large;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: var(--cyan);
+}
+.logo:hover, .logo:active, .logo:focus {
   text-decoration: none;
+  color: var(--cyan);
 }
 
 
