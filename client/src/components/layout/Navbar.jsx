@@ -3,7 +3,8 @@ import styles from './Navbar.module.css';
 import { Link } from 'react-router-dom';
 import { Button, Dropdown } from 'rsuite';
 
-import { FaArrowRightFromBracket, FaUser } from 'react-icons/fa6';
+import { FaArrowRightFromBracket, FaUser, FaCode } from 'react-icons/fa6';
+import { FaCog } from 'react-icons/fa';
 
 const NavLink = React.forwardRef(({ href, children, ...prop }, ref) => (
   <Link ref={ref} to={href} {...prop}>
@@ -16,9 +17,8 @@ const Navbar = () => {
     <>
       <div className={styles.navContainer}>
         <div className={styles.linkContainer}>
-          <Link to={`/`} className={styles.logo}>LEECHCODE</Link>
+          <Link to={`/`} className={styles.logo}>LEECHC<FaCode size={36}/>DE</Link>
           <Link to={`/play`}>PlayPage</Link>
-          <Link to={`/profile/test`}>Profile</Link>
         </div>
         <div className={styles.profileContainer}>
           <div className={styles.signInContainer}>
@@ -30,7 +30,8 @@ const Navbar = () => {
             </Button>
           </div>
           <Dropdown title='User' placement="bottomEnd">
-            <Dropdown.Item icon={<FaUser />} as={NavLink} href={`/profile/:id`} >View Profile</Dropdown.Item>
+            <Dropdown.Item icon={<FaUser />} as={NavLink} href={`/profile/:profileId`} >View Profile</Dropdown.Item>
+            <Dropdown.Item icon={<FaCog />} as={NavLink} href={`/setting/:profileId`} >Setting</Dropdown.Item>
             <Dropdown.Item icon={<FaArrowRightFromBracket />}>Logout</Dropdown.Item>
           </Dropdown>
         </div>

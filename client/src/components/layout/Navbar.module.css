@@ -1,5 +1,5 @@
 .navContainer {
-  background-color: var(--bgcolor2);
+  background-color: var(--bgcolor1);
   display: flex;
   justify-content: space-between;
   padding: 12px 24px;
@@ -21,6 +21,9 @@
   letter-spacing: 0.1rem;
   font-weight: bold;
   color: var(--cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
 }
 .logo:hover, .logo:active, .logo:focus {
   text-decoration: none;

@@ -8,6 +8,7 @@ import PlayPage from './pages/PlayPage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import Footer from './components/layout/Footer';
+import SettingPage from './pages/SettingPage';
 
 const Layout = () => {
   return(
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: '/profile/:profileId',
         element: <ProfilePage />,
       },
+      {
+        path: '/setting/:profileId',
+        element: <SettingPage />,
+      }
     ]
   }
 ])

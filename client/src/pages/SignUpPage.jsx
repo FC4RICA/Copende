@@ -10,7 +10,7 @@ const { StringType } = Schema.Types;
 const model = Schema.Model({
   name: StringType().isRequired(),
   email: StringType().isEmail().isRequired(),
-  password: StringType().isRequired().proxy(['confirmPassword']),
+  password: StringType().minLength(8, 'Minimum 8 characters required').containsNumber().isRequired().proxy(['confirmPassword']),
   confirmPassword: StringType().equalTo('password')
 });
 
@@ -62,8 +62,8 @@ const SignUpPage = () => {
           <TextField name='password' label='Password' type='password' autoComplete='off' />
           <TextField name='confirmPassword' label='Confirm Password' type='password' autoComplete='off' />
 
-          <Button appearance='primary' type='submit' color='cyan'>
-            Submit
+          <Button appearance='primary' type='submit' color='cyan' block>
+            Sign up
           </Button>
         </Form>
       </div>

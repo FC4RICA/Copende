@@ -47,7 +47,7 @@ const SignInPage = () => {
 
   return(
     <div className={styles.contentContainer}>
-      <h2>Sign Up</h2>
+      <h2>Sign In</h2>
       <div className={styles.formContainer}>
         <Form 
           ref={formRef}
@@ -60,8 +60,8 @@ const SignInPage = () => {
           <TextField name='email' label='Email' onBlur={handleCheckEmail}/>
           <TextField name='password' label='Password' type='password' autoComplete='off' />
 
-          <Button appearance='primary' type='submit' color='cyan'>
-            Submit
+          <Button appearance='primary' type='submit' color='cyan' block> 
+            Sign In
           </Button>
         </Form>
       </div>
