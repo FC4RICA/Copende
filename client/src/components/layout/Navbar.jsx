@@ -32,7 +32,7 @@ const Navbar = () => {
           <Dropdown title='User' placement="bottomEnd">
             <Dropdown.Item icon={<FaUser />} as={NavLink} href={`/profile/:profileId`} >View Profile</Dropdown.Item>
             <Dropdown.Item icon={<FaCog />} as={NavLink} href={`/setting/:profileId`} >Setting</Dropdown.Item>
-            <Dropdown.Item icon={<FaArrowRightFromBracket />}>Logout</Dropdown.Item>
+            <Dropdown.Item icon={<FaArrowRightFromBracket />} >Logout</Dropdown.Item>
           </Dropdown>
         </div>
 

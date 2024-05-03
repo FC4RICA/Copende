@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { HTMLEditor, CSSEditor } from '../components/shared/Editors.jsx';
 import { useDebounce } from '../utils/useDebounce.jsx';
 import 'react-reflex/styles.css'
 import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 'react-reflex'
-
+import { Button } from 'rsuite';
 import styles from './PlayPage.module.css';
+import html2canvas from 'html2canvas';
 
 
 const PlayPage = () => {
@@ -12,20 +13,14 @@ const PlayPage = () => {
   const [cssValue, setCssValue] = useState('');
   const [outputValue, setOutputValue] = useState('');
 
-  // use debounce to change the debouced value only when normal value stop changing for 1 s
   const deboucedHtml = useDebounce(htmlValue, 500);
   const deboucedCss = useDebounce(cssValue, 500);
-  
-  const logcode = () => {
-    console.log(htmlValue)
-    console.log(cssValue)
-  }
 
   useEffect(() => {
     setOutputValue(
       `<html>
       <style>
-      ${deboucedCss}
+      ${"body {overflow: hidden !important;}"+deboucedCss}
       </style>
       <body>
       ${deboucedHtml}
@@ -34,11 +29,23 @@ const PlayPage = () => {
     );
   }, [deboucedHtml, deboucedCss])
 
-  const [sizes, setSizes] = useState(['auto', 'auto', 'auto']);
+
+  const iframeRef = useRef(null)
+
+  const handleSubmit = () => {
+    const iframe = iframeRef.current;
+    const screen = iframe.contentWindow.document.body;
+    html2canvas(screen).then(
+      (canvas) => {
+        const base64image = canvas.toDataURL('image/png');
+        console.log(base64image)
+      }
+    )
+  }
 
   return (
     <>
-      <div className={styles.paneContainer}>
+      <div className={styles.paneContainer} >
         <ReflexContainer orientation='vertical' className={styles.reflexContainer}>
           <ReflexSplitter propagate={true} className={styles.reflexSplitter} style={{pointerEvents: 'none'}}>
             <ReflexHandle className={styles.reflexHandle}>
@@ -55,6 +62,7 @@ const PlayPage = () => {
             <HTMLEditor value={htmlValue} onChange={setHtmlValue} />
           </ReflexElement>
 
+
           <ReflexSplitter propagate={true} className={styles.reflexSplitter}>
             <ReflexHandle className={styles.reflexHandle}>
               CSS
@@ -70,6 +78,7 @@ const PlayPage = () => {
             <CSSEditor value={cssValue} onChange={setCssValue} />
           </ReflexElement>
 
+
           <ReflexSplitter propagate={true} className={styles.reflexSplitter}>
             <ReflexHandle className={styles.reflexHandle}>
               PREVIEW
@@ -78,9 +87,11 @@ const PlayPage = () => {
 
           <ReflexElement className={styles.reflexElement}>
             <div className={styles.previewContainer}>
-              <iframe srcDoc={outputValue} className={styles.preview}/>
+              <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef}/>
+              <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block>Submit</Button>
             </div>
           </ReflexElement>
+
 
           <ReflexSplitter propagate={true} className={styles.reflexSplitter}>
             <ReflexHandle className={styles.reflexHandle}>

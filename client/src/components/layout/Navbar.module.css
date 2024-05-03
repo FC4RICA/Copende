@@ -39,3 +39,7 @@
   display: flex;
   gap: 8px;
 }
+
+.logoutItem {
+  color: #f04f43 !important;
+}
