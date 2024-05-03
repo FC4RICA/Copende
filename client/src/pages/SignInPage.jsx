@@ -27,9 +27,6 @@ const SignInPage = () => {
     password: '',
   });
 
-  useEffect(() => {
-    console.log(formValue)
-  }, [formValue])
 
   const handleSubmit = () => {
     if (!formRef.current.check()) {

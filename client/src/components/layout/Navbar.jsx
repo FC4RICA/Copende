@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Navbar.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, Dropdown } from 'rsuite';
 
 import { FaArrowRightFromBracket, FaUser, FaCode } from 'react-icons/fa6';
@@ -13,6 +13,8 @@ const NavLink = React.forwardRef(({ href, children, ...prop }, ref) => (
 ));
 
 const Navbar = () => {
+  let location = useLocation()
+
   return(
     <>
       <div className={styles.navContainer}>
@@ -22,12 +24,18 @@ const Navbar = () => {
         </div>
         <div className={styles.profileContainer}>
           <div className={styles.signInContainer}>
-            <Button as={NavLink} href={`/signup`} appearance='primary' color='cyan'>
-              Sign Up
-            </Button>
-            <Button as={NavLink} href={`/signin`}>
+            {location.pathname === "/signup"? 
+              <></>:
+              <Button as={NavLink} href={`/signup`} appearance='primary' color='cyan'>
+                Sign Up
+              </Button>
+            }
+            {location.pathname === "/signin"? 
+              <></>:
+              <Button as={NavLink} href={`/signin`}>
               Sign In
-            </Button>
+              </Button>
+            }
           </div>
           <Dropdown title='User' placement="bottomEnd">
             <Dropdown.Item icon={<FaUser />} as={NavLink} href={`/profile/:profileId`} >View Profile</Dropdown.Item>

@@ -58,7 +58,7 @@ const SignUpPage = () => {
           onSubmit={handleSubmit}
         >
           <TextField name='name' label='Username' />
-          <TextField name='email' label='Email' onBlur={handleCheckEmail}/>
+          <TextField name='email' label='Email' />
           <TextField name='password' label='Password' type='password' autoComplete='off' />
           <TextField name='confirmPassword' label='Confirm Password' type='password' autoComplete='off' />
 

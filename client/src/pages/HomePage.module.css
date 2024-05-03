@@ -25,3 +25,9 @@
 .welcomeContainer .content p{
   margin-bottom: 1.5rem;
 }
+
+.postContainer {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
