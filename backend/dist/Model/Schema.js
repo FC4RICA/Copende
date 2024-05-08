@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.RoleModel = exports.PostModel = exports.PlayModel = exports.UserModel = void 0;
 const mongoose_1 = require("mongoose");
 const User = new mongoose_1.Schema({
     username: {
@@ -45,3 +45,33 @@ const Play = new mongoose_1.Schema({
         required: true
     },
 });
+exports.PlayModel = (0, mongoose_1.model)("Play", Play);
+const Post = new mongoose_1.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    data: {
+        type: Object,
+    },
+    UserID: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    create_at: {
+        type: Date,
+        required: true
+    },
+});
+exports.PostModel = (0, mongoose_1.model)("Post", Post);
+const Role = new mongoose_1.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+});
+exports.RoleModel = (0, mongoose_1.model)("Role", Role);
