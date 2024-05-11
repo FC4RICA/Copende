@@ -1,5 +1,9 @@
 import express from "express";
 import cors from "cors";
+import { PORT, MONGO_URI } from "./config/config";
+import userRouter from "./Router/userRouter"
+import mongoose from "mongoose";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(
@@ -8,8 +12,8 @@ app.use(
     credentials: true,
   })
 );
-
-const PORT = 8080;
+app.use(cookieParser());
+app.use(express.json());
 
 app.get("/", async (req, res) => {
   res.send({
@@ -17,10 +21,13 @@ app.get("/", async (req, res) => {
   });
 });
 
+app.use("/api/user",userRouter)
+
 app.listen(PORT, async () => {
-  try {
+  try {    
+    mongoose.connect(MONGO_URI);
     console.log(`Server is running at http://localhost:${PORT}`);
   } catch (error: any) {
-    console.log("server error");
+    console.log("server error", error.message);
   }
 });
