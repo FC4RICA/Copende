@@ -9,6 +9,7 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import Footer from './components/layout/Footer';
 import SettingPage from './pages/SettingPage';
+import CreatePostPage from './pages/CreatePostPage';
 
 const Layout = () => {
   return(
@@ -42,12 +43,20 @@ const router = createBrowserRouter([
         element: <PlayPage />,
       },
       {
+        path: '/play/:testId',
+        element: <PlayPage />,
+      },
+      {
         path: '/profile/:profileId',
         element: <ProfilePage />,
       },
       {
         path: '/setting/:profileId',
         element: <SettingPage />,
+      },
+      {
+        path: '/admin/post',
+        element: <CreatePostPage />,
       }
     ]
   }

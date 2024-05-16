@@ -20,7 +20,6 @@ const Navbar = () => {
       <div className={styles.navContainer}>
         <div className={styles.linkContainer}>
           <Link to={`/`} className={styles.logo}>LEECHC<FaCode size={36}/>DE</Link>
-          <Link to={`/play`}>PlayPage</Link>
         </div>
         <div className={styles.profileContainer}>
           <div className={styles.signInContainer}>
@@ -37,10 +36,10 @@ const Navbar = () => {
               </Button>
             }
           </div>
-          <Dropdown title='User' placement="bottomEnd">
+          <Dropdown title='User' placement="bottomEnd" className={styles.dropdown}>
             <Dropdown.Item icon={<FaUser />} as={NavLink} href={`/profile/:profileId`} >View Profile</Dropdown.Item>
             <Dropdown.Item icon={<FaCog />} as={NavLink} href={`/setting/:profileId`} >Setting</Dropdown.Item>
-            <Dropdown.Item icon={<FaArrowRightFromBracket />} >Logout</Dropdown.Item>
+            <Dropdown.Item icon={<FaArrowRightFromBracket/>} className={styles.logoutItem}>Logout</Dropdown.Item>
           </Dropdown>
         </div>
 
