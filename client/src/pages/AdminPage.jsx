@@ -1,8 +1,8 @@
 import { Button } from 'rsuite';
 import Post from '../components/shared/Post';
-import NavLink from '../components/shared/NavLink';
-
-import styles from './HomePage.module.css';
+import styles from './AdminPage.module.css'
+import NavLink from '../components/shared/NavLink'
+import { FaPlus } from "react-icons/fa6";
 
 
 const data= [
@@ -57,22 +57,16 @@ const data= [
   },
 ]
 
-const HomePage = () => {
-  return (
-    <>
-      <div className={styles.contentContaniner}>
-        <div className={styles.welcomeContainer}>
-          <div className={styles.content}>
-            <h2>Welcome to LeechCode</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur. Nam consectetur nulla et urna ullamcorper, ac convallis felis ultrices. Vestibulum lobortis, sapien quis efficitur fermentum, nulla magna accumsan ipsum, a ornare dui urna at elit. Praesent vel convallis quam. Ut gravida consequat velit ut tempor. Donec nisl tellus, venenatis eu ultrices quis, euismod in ipsum.</p>
-            <Button as={NavLink} href={`/signup`} appearance='primary' color='cyan'>
-              Sign Up / Sign In
+const AdminPage = () => {
+  return(
+    <div className={styles.contentContaniner}>
+        <div>
+          <div className={styles.headerContainer}>
+            <h2>Posts</h2>
+            <Button endIcon={<FaPlus/>} as={NavLink} href={`/admin/post`}>
+              New Post
             </Button>
           </div>
-        </div>
-
-        <div>
-          <h2>Learning CSS</h2>
           <hr />
         </div>
 
@@ -84,8 +78,7 @@ const HomePage = () => {
           }
         </div>
       </div>
-    </>
   )
 }
 
-export default HomePage;
+export default AdminPage;

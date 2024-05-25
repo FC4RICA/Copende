@@ -6,6 +6,7 @@ import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 're
 import { Button } from 'rsuite';
 import styles from './CreatePostPage.module.css'
 import html2canvas from 'html2canvas';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePostPage = () => {
   const [htmlValue, setHtmlValue] = useState('');
@@ -19,7 +20,7 @@ const CreatePostPage = () => {
     setOutputValue(
       `<html>
       <style>
-      ${"body {overflow: hidden !important;}"+deboucedCss}
+      ${"body {overflow: hidden !important;} html, body{ padding: 0; margin: 0; height: 100%;}"+deboucedCss}
       </style>
       <body>
       ${deboucedHtml}
@@ -28,6 +29,7 @@ const CreatePostPage = () => {
     );
   }, [deboucedHtml, deboucedCss])
 
+  const navigate = useNavigate()
 
   const iframeRef = useRef(null)
 
@@ -39,6 +41,7 @@ const CreatePostPage = () => {
         const base64image = canvas.toDataURL('image/png');
         //send to db
         console.log(base64image)
+        navigate('/admin')
       }
     )
   }

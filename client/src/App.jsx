@@ -10,6 +10,7 @@ import SignUpPage from './pages/SignUpPage';
 import Footer from './components/layout/Footer';
 import SettingPage from './pages/SettingPage';
 import CreatePostPage from './pages/CreatePostPage';
+import AdminPage from './pages/AdminPage';
 
 const Layout = () => {
   return(
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/post',
         element: <CreatePostPage />,
+      },
+      {
+        path: '/admin',
+        element: <AdminPage />
       }
     ]
   }

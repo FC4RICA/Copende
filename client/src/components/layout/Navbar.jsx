@@ -1,16 +1,11 @@
-import React from 'react';
 import styles from './Navbar.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import { Button, Dropdown } from 'rsuite';
+import NavLink from '../shared/NavLink'
 
 import { FaArrowRightFromBracket, FaUser, FaCode } from 'react-icons/fa6';
 import { FaCog } from 'react-icons/fa';
 
-const NavLink = React.forwardRef(({ href, children, ...prop }, ref) => (
-  <Link ref={ref} to={href} {...prop}>
-    {children}
-  </Link>
-));
 
 const Navbar = () => {
   let location = useLocation()

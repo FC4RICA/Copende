@@ -27,7 +27,7 @@ const PlayPage = () => {
     setOutputValue(
       `<html>
       <style>
-      ${"body {overflow: hidden !important;}"+deboucedCss}
+      ${"body {overflow: hidden !important;} html, body{ padding: 0; margin: 0; height: 100%;}" + deboucedCss}
       </style>
       <body>
       ${deboucedHtml}
