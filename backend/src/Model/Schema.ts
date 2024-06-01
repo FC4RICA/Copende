@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { UserInterface, PlayInterface, PostInterface, RoleInterface } from "../interface/model";
+import { UserInterface, PlayInterface, PostInterface, RoleInterface, UserRoleInterface} from "../interface/model";
 
 const User = new Schema<UserInterface>({
     username: {
@@ -25,13 +25,15 @@ const User = new Schema<UserInterface>({
 export const UserModel = model<UserInterface>("User",User);
 
 const Play = new Schema<PlayInterface>({
-    UserID: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
-    PostID: {
+    postId: {
         type: Schema.Types.ObjectId,
-        ref: "Post"
+        ref: "Post",
+        required: true
     },
     score: {
         type: Number,
@@ -54,16 +56,18 @@ const Post = new Schema<PostInterface>({
         type: String,
         required: true
     },
-    image: {
-        type: String,
+    imageId: {
+        type: Schema.Types.ObjectId,
+        ref: "Image",
         required: true
     },
     data: {
         type: Object,
     },
-    UserID: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     create_at: {
         type: Date,
@@ -76,8 +80,16 @@ export const PostModel = model<PostInterface>("Post",Post)
 const Role = new Schema<RoleInterface>({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 });
 
 export const RoleModel = model<RoleInterface>("Role",Role)
+
+const UserRole = new Schema<UserRoleInterface>({
+    userId : Schema.Types.ObjectId,
+    roleId : Schema.Types.ObjectId
+});
+
+export const UserRoleModel = model<UserRoleInterface>("UserRole",UserRole)

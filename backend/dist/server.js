@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const config_1 = require("./config/config");
 const userRouter_1 = __importDefault(require("./Router/userRouter"));
+const adminRouter_1 = __importDefault(require("./Router/adminRouter"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
@@ -31,6 +32,7 @@ app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 }));
 app.use("/api/user", userRouter_1.default);
+app.use("/api/admin", adminRouter_1.default);
 app.listen(config_1.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         mongoose_1.default.connect(config_1.MONGO_URI);
