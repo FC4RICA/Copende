@@ -8,8 +8,8 @@ export interface UserInterface {
 }
 
 export interface PlayInterface {
-    UserID : ObjectId
-    PostID : ObjectId
+    userId : ObjectId
+    postId : ObjectId
     score : number;
     char_num :  number;
     create_at : Date;
@@ -17,10 +17,10 @@ export interface PlayInterface {
 
 export interface PostInterface {
     name : string;
-    image : string;
+    imageId : ObjectId;
     data : object;
     create_at : Date;
-    UserID : ObjectId
+    userId : ObjectId
 }
 
 export interface RoleInterface {
@@ -28,5 +28,10 @@ export interface RoleInterface {
 }
 
 export interface PayloadUser {
-    UserID : string;
+    userId : string;
+}
+
+export interface UserRoleInterface{
+    userId : ObjectId
+    roleId : ObjectId
 }

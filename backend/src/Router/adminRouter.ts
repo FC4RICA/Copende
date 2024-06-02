@@ -1,4 +1,5 @@
 import express from 'express';
+import { createRole } from '../util/Role/createRole';
 
 const router = express.Router();
 
@@ -7,3 +8,8 @@ router.get("/", (req, res) => {
         message: "this is admin router",
     });
 });
+
+// Roles management
+router.post("/createRole", createRole);
+
+export default router;

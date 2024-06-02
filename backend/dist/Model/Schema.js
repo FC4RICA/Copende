@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoleModel = exports.PostModel = exports.PlayModel = exports.UserModel = void 0;
+exports.UserRoleModel = exports.RoleModel = exports.PostModel = exports.PlayModel = exports.UserModel = void 0;
 const mongoose_1 = require("mongoose");
 const User = new mongoose_1.Schema({
     username: {
@@ -24,13 +24,15 @@ const User = new mongoose_1.Schema({
 });
 exports.UserModel = (0, mongoose_1.model)("User", User);
 const Play = new mongoose_1.Schema({
-    UserID: {
+    userId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
-    PostID: {
+    postId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "Post"
+        ref: "Post",
+        required: true
     },
     score: {
         type: Number,
@@ -51,16 +53,18 @@ const Post = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
+    imageId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Image",
         required: true
     },
     data: {
         type: Object,
     },
-    UserID: {
+    userId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     create_at: {
         type: Date,
@@ -71,7 +75,13 @@ exports.PostModel = (0, mongoose_1.model)("Post", Post);
 const Role = new mongoose_1.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 });
 exports.RoleModel = (0, mongoose_1.model)("Role", Role);
+const UserRole = new mongoose_1.Schema({
+    userId: mongoose_1.Schema.Types.ObjectId,
+    roleId: mongoose_1.Schema.Types.ObjectId
+});
+exports.UserRoleModel = (0, mongoose_1.model)("UserRole", UserRole);
