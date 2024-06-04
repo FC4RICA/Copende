@@ -1,31 +1,24 @@
 import { Form, Schema, Button } from 'rsuite';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
+import TextField from '../components/shared/TextField';
 import styles from './SignUpPage.module.css';
 
 
 const { StringType } = Schema.Types;
 
 const model = Schema.Model({
-  name: StringType().isRequired(),
+  username: StringType().minLength(6, 'Minimum 6 characters required').maxLength(16, 'Maximun at 16 character').isRequired(),
   email: StringType().isEmail().isRequired(),
   password: StringType().minLength(8, 'Minimum 8 characters required').containsNumber().isRequired().proxy(['confirmPassword']),
   confirmPassword: StringType().equalTo('password')
 });
 
-const TextField = ({ name, label, accepter, ...prop }) => (
-  <Form.Group controlId={name}>
-    <Form.ControlLabel>{label} </Form.ControlLabel>
-    <Form.Control name={name} accepter={accepter} {...prop}/>
-  </Form.Group>
-);
-
 const SignUpPage = () => {
   const formRef = useRef();
   const [formError, setFormError] = useState({});
   const [formValue, setFormValue] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -37,12 +30,6 @@ const SignUpPage = () => {
       return
     }
     console.log(formValue, 'Form Value')
-  }
-
-  const handleCheckEmail = () => {
-    formRef.current.checkForField('email', (checkResult) => {
-      console.log(checkResult)
-    })
   }
 
   return(
@@ -57,7 +44,7 @@ const SignUpPage = () => {
           model={model}
           onSubmit={handleSubmit}
         >
-          <TextField name='name' label='Username' />
+          <TextField name='username' label='Username' />
           <TextField name='email' label='Email' />
           <TextField name='password' label='Password' type='password' autoComplete='off' />
           <TextField name='confirmPassword' label='Confirm Password' type='password' autoComplete='off' />

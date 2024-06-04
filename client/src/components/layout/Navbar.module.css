@@ -41,6 +41,6 @@
   gap: 8px;
 }
 
-.logoutItem {
+.logoutItem, .logoutItem *{
   color: #f04f43 !important;
 }

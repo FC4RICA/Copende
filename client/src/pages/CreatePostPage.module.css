@@ -1,0 +1,69 @@
+.paneContainer {
+  background-image:  radial-gradient(#ffffff30 0.5px, transparent 0.5px), radial-gradient(#ffffff30 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0,10px 10px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.reflexContainer {
+  height: auto;
+}
+
+.reflexElement {
+  display: flex;
+  overflow-y: hidden !important;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.reflexElement {
+  overflow-y: visible !important;
+}
+
+.editorTitleContainer {
+  display: flex;
+}
+.editorTitle {
+  background-color: var(--bgcolor2);
+  padding: 2px 12px;
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+.reflexSplitter {
+  width: auto !important;
+  border: none !important;
+  background-color: var(--color1) !important;
+  color: var(--black);
+}
+
+.reflexHandle {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding: 8px 2px;
+  font-size: 14px;
+}
+
+
+.previewContainer {
+  padding: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview {
+  border: none;
+  width: 400px;
+  height: 300px;
+  background-color: var(--white);
+}
+
+.submitButton {
+  max-width: 400px;
+  margin-top: auto;
+}

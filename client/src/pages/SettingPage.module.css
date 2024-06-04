@@ -17,5 +17,21 @@
   border: 1px solid var(--color4);
   border-radius: 8px;
   background-color: var(--bgcolor1);
+  gap: 1rem;
+}
+
+.tabsContainer button[role='tab'] {
+  padding: 12px 24px;
+}
+
+.tabsContainer button[role='tab']:hover {
+  background-color: var(--bgcolor2);
+}
+
+.tabsContainer > div {
   gap: 3rem;
+}
+
+.advanceSettingContainer p{
+  margin-bottom: 12px;
 }

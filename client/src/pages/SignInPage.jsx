@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Schema, Button } from 'rsuite';
-
+import TextField from '../components/shared/TextField';
 import styles from './SignInPage.module.css';
 
 
@@ -11,13 +11,6 @@ const model = Schema.Model({
   email: StringType().isEmail().isRequired(),
   password: StringType().isRequired(),
 });
-
-const TextField = ({ name, label, accepter, ...prop }) => (
-  <Form.Group controlId={name}>
-    <Form.ControlLabel>{label} </Form.ControlLabel>
-    <Form.Control name={name} accepter={accepter} {...prop}/>
-  </Form.Group>
-);
 
 const SignInPage = () => {
   const formRef = useRef();
@@ -36,12 +29,6 @@ const SignInPage = () => {
     console.log(formValue, 'Form Value')
   }
 
-  const handleCheckEmail = () => {
-    formRef.current.checkForField('email', (checkResult) => {
-      console.log(checkResult)
-    })
-  }
-
   return(
     <div className={styles.contentContainer}>
       <h2>Sign In</h2>
@@ -54,7 +41,7 @@ const SignInPage = () => {
           model={model}
           onSubmit={handleSubmit}
         >
-          <TextField name='email' label='Email' onBlur={handleCheckEmail}/>
+          <TextField name='email' label='Email'/>
           <TextField name='password' label='Password' type='password' autoComplete='off' />
 
           <Button appearance='primary' type='submit' color='cyan' block> 
@@ -63,7 +50,7 @@ const SignInPage = () => {
         </Form>
       </div>
       <p>
-        Doesn't have an account? <Link to={'/signin'}>Sign up</Link>
+        Doesn't have an account? <Link to={'/signup'}>Sign up</Link>
       </p>
     </div>
   )
