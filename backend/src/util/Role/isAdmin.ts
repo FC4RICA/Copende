@@ -4,7 +4,6 @@ import { RoleModel } from "../../Model/Schema";
 import jwt from "jsonwebtoken";
 import { secret_JWT } from "../../config/config";
 
-// Still need to adjust the query code using populate
 export const isAdmin = async (req: Request, res: Response) => {
   try {
     const token = req.cookies.token;
@@ -20,18 +19,21 @@ export const isAdmin = async (req: Request, res: Response) => {
     }
 
     const userID = (validToken as { userId: any }).userId;
+    
+    const  userRoles = await UserRoleModel.find({ userId: userID }).populate({
+      path: "roleId",
+      model: RoleModel,
+      select: "name",
+    });
 
-    const userRole = await UserRoleModel.find({ userId: userID });
-    if (!userRole) {
+    if (!userRoles) {
       res.json({ message: "User not found in UserRole table" });
       return false;
     }
 
-    const roleIds = userRole.map((userRole) => userRole.roleId);
+    const hasAdminRole = userRoles.some((userRole: any) => userRole.roleId.name === "admin");
 
-    const hasAdminRole = await RoleModel.find({_id: { $in: roleIds },name: "admin",});
-
-    if (hasAdminRole.length > 0) {
+    if (hasAdminRole) {
         res.status(200).json({message: "This user is admin"});
         return true;
     }
