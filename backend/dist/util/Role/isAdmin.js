@@ -30,14 +30,17 @@ const isAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return false;
         }
         const userID = validToken.userId;
-        const userRole = yield Schema_1.UserRoleModel.find({ userId: userID });
-        if (!userRole) {
+        const userRoles = yield Schema_1.UserRoleModel.find({ userId: userID }).populate({
+            path: "roleId",
+            model: Schema_2.RoleModel,
+            select: "name",
+        });
+        if (!userRoles) {
             res.json({ message: "User not found in UserRole table" });
             return false;
         }
-        const roleIds = userRole.map((userRole) => userRole.roleId);
-        const hasAdminRole = yield Schema_2.RoleModel.find({ _id: { $in: roleIds }, name: "admin", });
-        if (hasAdminRole.length > 0) {
+        const hasAdminRole = userRoles.some((userRole) => userRole.roleId.name === "admin");
+        if (hasAdminRole) {
             res.status(200).json({ message: "This user is admin" });
             return true;
         }
