@@ -17,8 +17,8 @@ export interface PlayInterface {
 
 export interface PostInterface {
     name : string;
-    postImage : string;
-    data : string[];
+    imageId : ObjectId;
+    data : object;
     create_at : Date;
     userId : ObjectId
 }

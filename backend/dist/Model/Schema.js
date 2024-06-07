@@ -53,11 +53,14 @@ const Post = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    postImage: {
-        type: String,
+    imageId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Image",
         required: true
     },
-    data: [String],
+    data: {
+        type: Object,
+    },
     userId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "User",
