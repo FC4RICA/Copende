@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { UserModel } from "../../Model/Schema";
-import { UserRoleModel } from "../../Model/Schema";
+import { UserModel } from "../../../Model/Schema";
+import { UserRoleModel } from "../../../Model/Schema";
 import jwt from 'jsonwebtoken';
-import { hashPassword } from "../../util/passwordManager";
-import { secret_JWT } from "../../config/config";
-import { GetRoleIDByRole } from "../../util/Role/GetRoleIDByRole";
+import { hashPassword } from "../../../util/passwordManager";
+import { secret_JWT } from "../../../config/config";
+import { GetRoleIDByRole } from "../../../util/Role/GetRoleIDByRole";
 
 export const register = async (req: Request, res: Response) => {
     try {

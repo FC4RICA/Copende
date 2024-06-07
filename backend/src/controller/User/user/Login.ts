@@ -1,9 +1,9 @@
-import { PayloadUser } from "../../interface/model";
+import { PayloadUser } from "../../../interface/model";
 import { Request,Response } from "express";
-import { UserModel } from "../../Model/Schema";
-import { comparePassword } from "../../util/passwordManager";
+import { UserModel } from "../../../Model/Schema";
+import { comparePassword } from "../../../util/passwordManager";
 import jwt from 'jsonwebtoken';
-import { secret_JWT } from "../../config/config";
+import { secret_JWT } from "../../../config/config";
 
 export const Login = async (req: Request, res: Response) => {
     try {

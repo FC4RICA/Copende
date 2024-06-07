@@ -5,6 +5,7 @@ import userRouter from "./Router/userRouter"
 import adminRouter from "./Router/adminRouter"
 import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
+import multer from "multer";
 
 const app = express();
 app.use(
@@ -15,6 +16,12 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+});
+
+app.use(multerMid.single("file"));
 
 app.get("/", async (req, res) => {
   res.send({
