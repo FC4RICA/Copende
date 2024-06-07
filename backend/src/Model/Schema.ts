@@ -49,21 +49,18 @@ const Play = new Schema<PlayInterface>({
     },
 });
 
-export const PlayModel = model<PlayInterface>("Play",Play)
+export const PlayModel = model<PlayInterface>("Play",Play);
 
 const Post = new Schema<PostInterface>({
     name: {
         type: String,
         required: true
     },
-    imageId: {
-        type: Schema.Types.ObjectId,
-        ref: "Image",
+    postImage: {
+        type: String,
         required: true
     },
-    data: {
-        type: Object,
-    },
+    data: [String],
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -75,7 +72,7 @@ const Post = new Schema<PostInterface>({
     },
 });
 
-export const PostModel = model<PostInterface>("Post",Post)
+export const PostModel = model<PostInterface>("Post",Post);
 
 const Role = new Schema<RoleInterface>({
     name: {
@@ -85,11 +82,11 @@ const Role = new Schema<RoleInterface>({
     },
 });
 
-export const RoleModel = model<RoleInterface>("Role",Role)
+export const RoleModel = model<RoleInterface>("Role",Role);
 
 const UserRole = new Schema<UserRoleInterface>({
     userId : Schema.Types.ObjectId,
     roleId : Schema.Types.ObjectId
 });
 
-export const UserRoleModel = model<UserRoleInterface>("UserRole",UserRole)
+export const UserRoleModel = model<UserRoleInterface>("UserRole",UserRole);
