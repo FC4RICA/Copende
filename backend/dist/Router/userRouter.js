@@ -13,6 +13,7 @@ const GetUserByUserID_1 = require("../controller/User/user/GetUserByUserID");
 const getPost_1 = require("../controller/User/post/getPost");
 const EditUsername_1 = require("../controller/User/user/EditUsername");
 const EditPassword_1 = require("../controller/User/user/EditPassword");
+const deleteAccount_1 = require("../controller/User/user/deleteAccount");
 const router = express_1.default.Router();
 router.get("/", (req, res) => {
     res.send({
@@ -26,6 +27,7 @@ router.post("/login", auth_1.isLogin, Login_1.Login);
 router.post("/register", auth_1.isLogin, Register_1.register);
 router.put("/editUsername", EditUsername_1.editUsername);
 router.put("/editPassword", EditPassword_1.editPassword);
+router.delete("/deleteAccount", deleteAccount_1.deleteAccount);
 // Post router
 router.get("/post/getPost", getPost_1.getPost);
 exports.default = router;

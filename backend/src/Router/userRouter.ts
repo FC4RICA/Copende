@@ -8,6 +8,7 @@ import { getUserByUserID } from '../controller/User/user/GetUserByUserID';
 import { getPost } from '../controller/User/post/getPost';
 import { editUsername } from '../controller/User/user/EditUsername';
 import { editPassword } from '../controller/User/user/EditPassword';
+import { deleteAccount } from '../controller/User/user/deleteAccount';
 
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router.post("/login", isLogin, Login);
 router.post("/register", isLogin, register);
 router.put("/editUsername", editUsername);
 router.put("/editPassword", editPassword);
+router.delete("/deleteAccount", deleteAccount);
 
 // Post router
 router.get("/post/getPost", getPost);
