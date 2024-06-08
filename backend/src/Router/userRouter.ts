@@ -22,6 +22,6 @@ router.post("/login", isLogin, Login);
 router.post("/register", isLogin, register);
 
 // Post router
-router.get("/getPost", getPost);
+router.get("/post/getPost", getPost);
 
 export default router;
