@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PostModel } from "../../Model/Schema";
+import { ImageModel } from "../../Model/Schema";
 import jwt from "jsonwebtoken";
 import { secret_JWT } from "../../config/config";
 import { uploadImagePost } from "../../util/uploadImage";
@@ -22,15 +23,20 @@ export const createPost = async (req: Request, res: Response) => {
         const imageUrl = await uploadImagePost(base64Image);
         const UserID = (validToken as {userId: any}).userId;
 
+        const image = new ImageModel({
+            name: imageUrl,
+        });
+        await image.save();
+
         const post = new PostModel({
             name,
-            postImage: imageUrl,
+            postImage: image._id,
             data,
             userId: UserID,
             create_at: Date.now(),
         });
         await post.save();
-        res.status(201).send("Post created successfully!");
+        res.status(201).send({message: "Post created successfully!"});
     } catch (error:any) {
         console.log(error.message);
     }

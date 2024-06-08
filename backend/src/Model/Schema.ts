@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { UserInterface, PlayInterface, PostInterface, RoleInterface, UserRoleInterface} from "../interface/model";
+import { UserInterface, PlayInterface, PostInterface, RoleInterface, UserRoleInterface, ImageInterface} from "../interface/model";
 
 const User = new Schema<UserInterface>({
     username: {
@@ -57,7 +57,8 @@ const Post = new Schema<PostInterface>({
         required: true
     },
     postImage: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Image",
         required: true
     },
     data: [String],
@@ -90,3 +91,12 @@ const UserRole = new Schema<UserRoleInterface>({
 });
 
 export const UserRoleModel = model<UserRoleInterface>("UserRole",UserRole);
+
+const Image = new Schema<ImageInterface>({
+    name: {
+        type: String,
+        required: true
+    },
+});
+
+export const ImageModel = model<ImageInterface>("Image",Image);
