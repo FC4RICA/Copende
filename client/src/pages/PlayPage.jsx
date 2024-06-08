@@ -7,6 +7,11 @@ import { Button } from 'rsuite';
 import styles from './PlayPage.module.css';
 import html2canvas from 'html2canvas';
 
+const post = {
+  id: 0,
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
+  data: {},
+}
 
 const PlayPage = () => {
   const [htmlValue, setHtmlValue] = useState('');
@@ -16,11 +21,13 @@ const PlayPage = () => {
   const deboucedHtml = useDebounce(htmlValue, 500);
   const deboucedCss = useDebounce(cssValue, 500);
 
+  //get target data
+
   useEffect(() => {
     setOutputValue(
       `<html>
       <style>
-      ${"body {overflow: hidden !important;}"+deboucedCss}
+      ${"body {overflow: hidden !important;} html, body{ padding: 0; margin: 0; height: 100%;}" + deboucedCss}
       </style>
       <body>
       ${deboucedHtml}
@@ -38,6 +45,7 @@ const PlayPage = () => {
     html2canvas(screen).then(
       (canvas) => {
         const base64image = canvas.toDataURL('image/png');
+        //send to db
         console.log(base64image)
       }
     )
@@ -85,9 +93,10 @@ const PlayPage = () => {
             </ReflexHandle>
           </ReflexSplitter>
 
-          <ReflexElement className={styles.reflexElement}>
+          <ReflexElement className={styles.reflexElement} maxSize={424}>
             <div className={styles.previewContainer}>
               <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef}/>
+              <img className={styles.target} src={post.image}/>
               <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block>Submit</Button>
             </div>
           </ReflexElement>
@@ -99,9 +108,9 @@ const PlayPage = () => {
             </ReflexHandle>
           </ReflexSplitter>
 
-          <ReflexElement className={styles.reflexElement}>
+          <ReflexElement className={styles.reflexElement} maxSize={424}>
             <div className={styles.previewContainer}>
-              <iframe srcDoc={outputValue} className={styles.preview}/>
+              <img className={styles.target} src={post.image}/>
             </div>
           </ReflexElement>
         </ReflexContainer>

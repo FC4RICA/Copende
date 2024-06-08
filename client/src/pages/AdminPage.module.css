@@ -10,20 +10,10 @@
   flex: 1;
 }
 
-.welcomeContainer {
+.headerContainer {
   display: flex;
-  padding: 2rem;
-  border: 1px solid var(--color4);
-  border-radius: 8px;
-  background-color: var(--bgcolor1);
-}
-
-.welcomeContainer .content h2{
-  margin-bottom: 0.8rem;
-  color: var(--color1);
-}
-.welcomeContainer .content p{
-  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .postContainer {

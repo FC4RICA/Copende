@@ -3,7 +3,7 @@ import styles from './ProfilePage.module.css';
 const user = {
   name: 'username101',
   gamePlayed: 1,
-  avgMatch: 100,
+  avgMatch: 100.00,
   avgCharacter: 694,
 }
 

@@ -60,11 +60,24 @@
   border: none;
   width: 400px;
   height: 300px;
-  pointer-events: none;
   background-color: var(--white);
+}
+
+.preview:hover {
+  opacity: 0.5;
+}
+
+.previewContainer .target {
+  position: absolute;
+  z-index: -5;
 }
 
 .submitButton {
   max-width: 400px;
   margin-top: auto;
+}
+
+.target {
+  width: 400px;
+  height: 300px;
 }
