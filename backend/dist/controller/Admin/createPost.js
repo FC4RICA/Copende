@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPost = void 0;
 const Schema_1 = require("../../Model/Schema");
+const Schema_2 = require("../../Model/Schema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../../config/config");
 const uploadImage_1 = require("../../util/uploadImage");
@@ -32,15 +33,19 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         const imageUrl = yield (0, uploadImage_1.uploadImagePost)(base64Image);
         const UserID = validToken.userId;
+        const image = new Schema_2.ImageModel({
+            name: imageUrl,
+        });
+        yield image.save();
         const post = new Schema_1.PostModel({
             name,
-            postImage: imageUrl,
+            postImage: image._id,
             data,
             userId: UserID,
             create_at: Date.now(),
         });
         yield post.save();
-        res.status(201).send("Post created successfully!");
+        res.status(201).send({ message: "Post created successfully!" });
     }
     catch (error) {
         console.log(error.message);

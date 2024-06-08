@@ -17,7 +17,7 @@ export interface PlayInterface {
 
 export interface PostInterface {
     name : string;
-    postImage : string;
+    postImage : ObjectId;
     data : string[];
     create_at : Date;
     userId : ObjectId
@@ -34,4 +34,8 @@ export interface PayloadUser {
 export interface UserRoleInterface{
     userId : ObjectId
     roleId : ObjectId
+}
+
+export interface ImageInterface {
+    name : string;
 }
