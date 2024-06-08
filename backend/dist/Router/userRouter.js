@@ -11,6 +11,7 @@ const Login_1 = require("../controller/User/user/Login");
 const Getuser_1 = require("../controller/User/user/Getuser");
 const GetUserByUserID_1 = require("../controller/User/user/GetUserByUserID");
 const getPost_1 = require("../controller/User/post/getPost");
+const getPostByPostID_1 = require("../controller/User/post/getPostByPostID");
 const EditUsername_1 = require("../controller/User/user/EditUsername");
 const EditPassword_1 = require("../controller/User/user/EditPassword");
 const deleteAccount_1 = require("../controller/User/user/deleteAccount");
@@ -30,4 +31,5 @@ router.put("/editPassword", EditPassword_1.editPassword);
 router.delete("/deleteAccount", deleteAccount_1.deleteAccount);
 // Post router
 router.get("/post/getPost", getPost_1.getPost);
+router.get("/post/getPostByPostID", getPostByPostID_1.getPostByPostID);
 exports.default = router;
