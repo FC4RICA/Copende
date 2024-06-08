@@ -23,5 +23,5 @@ router.get("/logout", Logout_1.LogOut);
 router.post("/login", auth_1.isLogin, Login_1.Login);
 router.post("/register", auth_1.isLogin, Register_1.register);
 // Post router
-router.get("/getPost", getPost_1.getPost);
+router.get("/post/getPost", getPost_1.getPost);
 exports.default = router;
