@@ -7,6 +7,7 @@ import { getUser } from '../controller/User/user/Getuser';
 import { getUserByUserID } from '../controller/User/user/GetUserByUserID';
 import { getPost } from '../controller/User/post/getPost';
 import { editUsername } from '../controller/User/user/EditUsername';
+import { editPassword } from '../controller/User/user/EditPassword';
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.get("/logout", LogOut);
 router.post("/login", isLogin, Login);
 router.post("/register", isLogin, register);
 router.put("/editUsername", editUsername);
+router.put("/editPassword", editPassword);
 
 // Post router
 router.get("/post/getPost", getPost);
