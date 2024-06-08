@@ -10,6 +10,7 @@ import { getPostByPostID } from '../controller/User/post/getPostByPostID';
 import { editUsername } from '../controller/User/user/EditUsername';
 import { editPassword } from '../controller/User/user/EditPassword';
 import { deleteAccount } from '../controller/User/user/deleteAccount';
+import { playSubmit } from '../controller/User/play/playSubmit';
 
 const router = express.Router();
 
@@ -31,5 +32,8 @@ router.delete("/deleteAccount", deleteAccount);
 // Post router
 router.get("/post/getPost", getPost);
 router.get("/post/getPostByPostID", getPostByPostID);
+
+//Play management
+router.post("/play/playSubmit", playSubmit);
 
 export default router;
