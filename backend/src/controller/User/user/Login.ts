@@ -20,7 +20,7 @@ export const Login = async (req: Request, res: Response) => {
 
         const payload = jwt.sign({userId: user._id},String(secret_JWT), {algorithm: "HS256"});
         res.cookie("token",payload,{httpOnly : true});
-        res.status(200).json({message: "Login Success"});
+        res.status(200).json({message: "Login Success", payload: payload});
     } catch (error:any) {
         console.log(error.message);
     }

@@ -14,14 +14,6 @@ export const register = async (req: Request, res: Response) => {
             email,
         } = req.body
         
-        const existingEmail = await UserModel.findOne({ email: email });
-        const existingUsername = await UserModel.findOne({ username: username });
-        if (existingEmail || existingUsername) {
-            return res.status(409).send({
-                message: "Email or Username is already in use. Please use a different email or username."
-            });
-        }
-
         const user = new UserModel({
             username,
             password : await hashPassword(password),

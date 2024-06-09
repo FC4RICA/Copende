@@ -22,13 +22,6 @@ const GetRoleIDByRole_1 = require("../../../util/Role/GetRoleIDByRole");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password, email, } = req.body;
-        const existingEmail = yield Schema_1.UserModel.findOne({ email: email });
-        const existingUsername = yield Schema_1.UserModel.findOne({ username: username });
-        if (existingEmail || existingUsername) {
-            return res.status(409).send({
-                message: "Email or Username is already in use. Please use a different email or username."
-            });
-        }
         const user = new Schema_1.UserModel({
             username,
             password: yield (0, passwordManager_1.hashPassword)(password),
