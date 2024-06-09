@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAccount = void 0;
+exports.alreadyPlay = void 0;
 const Schema_1 = require("../../../Model/Schema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../../../config/config");
-const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const alreadyPlay = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = req.cookies.token;
+        const { postId } = req.query;
         if (!token) {
             res.json({ message: "Unauthorized" });
             return false;
@@ -29,19 +30,15 @@ const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return false;
         }
         const UserID = validToken.userId;
-        const user = yield Schema_1.UserModel.findById(UserID);
-        if (user) {
-            yield Schema_1.UserRoleModel.deleteMany({ userId: { $in: user._id } });
-            yield user.deleteOne();
-            res.clearCookie("token");
-            res.status(200).json({ message: "User Deleted" });
+        const alreadyPlay = yield Schema_1.PlayModel.exists({ userId: UserID, postId: postId });
+        if (!alreadyPlay) {
+            res.status(404).json({ message: "User doesn't play this post yet" });
+            return;
         }
-        else {
-            res.status(404).json({ message: "User Not Found" });
-        }
+        res.status(200).json({ message: "User already play this post" });
     }
     catch (error) {
         console.log(error.message);
     }
 });
-exports.deleteAccount = deleteAccount;
+exports.alreadyPlay = alreadyPlay;

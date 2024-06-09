@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { UserModel, UserRoleModel } from "../../../Model/Schema";
-import jwt from "jsonwebtoken";
+import { PlayModel } from "../../../Model/Schema";
+import jwt from 'jsonwebtoken';
 import { secret_JWT } from "../../../config/config";
 
-export const deleteAccount = async (req: Request, res: Response) => {
+export const getPlayByUserID = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;
 
@@ -19,15 +19,13 @@ export const deleteAccount = async (req: Request, res: Response) => {
         }
 
         const UserID = (validToken as {userId: any}).userId;
-        
-        const user = await UserModel.findById(UserID);
-        if (user){
-            await UserRoleModel.deleteMany({userId: {$in: user._id}})
-            await user.deleteOne();
-            res.clearCookie("token");
-            res.status(200).json({message:"User Deleted"});
-        }else{
-            res.status(404).json({message:"User Not Found"});
+
+        const plays = await PlayModel.find({ userId: UserID }).populate({path: 'postId',populate: {path: 'postImage'}});
+
+        if (plays.length > 0) {
+            res.status(200).json({ message: "Play data found", plays });
+        } else {
+            res.status(404).json({ message: "No play data found" });
         }
     } catch (error:any) {
         console.log(error.message);

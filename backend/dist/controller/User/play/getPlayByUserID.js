@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAccount = void 0;
+exports.getPlayByUserID = void 0;
 const Schema_1 = require("../../../Model/Schema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../../../config/config");
-const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getPlayByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = req.cookies.token;
         if (!token) {
@@ -29,19 +29,16 @@ const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return false;
         }
         const UserID = validToken.userId;
-        const user = yield Schema_1.UserModel.findById(UserID);
-        if (user) {
-            yield Schema_1.UserRoleModel.deleteMany({ userId: { $in: user._id } });
-            yield user.deleteOne();
-            res.clearCookie("token");
-            res.status(200).json({ message: "User Deleted" });
+        const plays = yield Schema_1.PlayModel.find({ userId: UserID }).populate({ path: 'postId', populate: { path: 'postImage' } });
+        if (plays.length > 0) {
+            res.status(200).json({ message: "Play data found", plays });
         }
         else {
-            res.status(404).json({ message: "User Not Found" });
+            res.status(404).json({ message: "No play data found" });
         }
     }
     catch (error) {
         console.log(error.message);
     }
 });
-exports.deleteAccount = deleteAccount;
+exports.getPlayByUserID = getPlayByUserID;

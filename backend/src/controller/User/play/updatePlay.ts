@@ -6,7 +6,7 @@ import { compareImg } from "../../../util/compareImg";
 import jwt from 'jsonwebtoken';
 import { secret_JWT } from "../../../config/config";
 
-export const playSubmit = async (req: Request, res: Response) => {
+export const updatePlay = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;
         const { postId } = req.query;
@@ -28,18 +28,28 @@ export const playSubmit = async (req: Request, res: Response) => {
         const post = await PostModel.findById(postId).populate("postImage").populate("userId");
         const postImage = await ImageModel.findById(post?.postImage);
         
-        const imageDiff = await compareImg(base64Image,postImage?.name);
+        const newImageDiff = await compareImg(base64Image,postImage?.name);
+        
+        const plays = await PlayModel.find({userId: UserID, postId: postId});
+        const play = await PlayModel.findOne({_id: plays});
+        if (!play) {
+            res.status(404).json({message: "play not found"});
+            return;
+        }
 
-        const play = new PlayModel({
-            userId: UserID,
-            postId: postId,
-            score: imageDiff,
-            char_num: char_num,
-            create_at: Date.now(),
-        })
-        await play.save();
+        if (!newImageDiff) {
+            res.status(400).json({message: "score not defined"});
+            return;
+        }
 
-        res.status(201).json({message: "play successfully"});
+        if (parseFloat(newImageDiff) >= play?.score){
+            play.score = parseFloat(newImageDiff);
+            play.char_num = char_num;
+            await play.save();
+            res.status(200).json({message: "update play successfully"});
+        } else {
+            res.status(400).json({message: "score belower than previous score"});
+        }
     } catch (error: any) {
         console.log(error.message);
     }
