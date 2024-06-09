@@ -33,6 +33,7 @@ const editUsername = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const user = yield Schema_1.UserModel.findByIdAndUpdate(UserID, { username: newUsername });
         if (!user) {
             res.status(400).json({ message: "user not found!" });
+            return;
         }
         res.status(200).json({ message: "user updated successfully" });
     }

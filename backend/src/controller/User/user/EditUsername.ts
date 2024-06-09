@@ -24,6 +24,7 @@ export const editUsername = async (req: Request, res: Response) => {
         const user = await UserModel.findByIdAndUpdate(UserID, {username: newUsername});
         if (!user) {
             res.status(400).json({message: "user not found!"});
+            return;
         }
         res.status(200).json({message: "user updated successfully"})
     } catch (error:any) {
