@@ -57,11 +57,9 @@ const data= [
   },
 ]
 
-const HomePage = () => {
+const Welcome = () => {
   return (
-    <>
-      <div className={styles.contentContaniner}>
-        <div className={styles.welcomeContainer}>
+    <div className={styles.welcomeContainer}>
           <div className={styles.content}>
             <h2>Welcome to LeechCode</h2>
             <p>Lorem ipsum dolor sit amet, consectetur. Nam consectetur nulla et urna ullamcorper, ac convallis felis ultrices. Vestibulum lobortis, sapien quis efficitur fermentum, nulla magna accumsan ipsum, a ornare dui urna at elit. Praesent vel convallis quam. Ut gravida consequat velit ut tempor. Donec nisl tellus, venenatis eu ultrices quis, euismod in ipsum.</p>
@@ -70,6 +68,14 @@ const HomePage = () => {
             </Button>
           </div>
         </div>
+  )
+}
+
+const HomePage = () => {
+  return (
+    <>
+      <div className={styles.contentContaniner}>
+        <Welcome />
 
         <div>
           <h2>Learning CSS</h2>

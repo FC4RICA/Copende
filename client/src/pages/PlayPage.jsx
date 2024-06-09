@@ -6,11 +6,14 @@ import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 're
 import { Button } from 'rsuite';
 import styles from './PlayPage.module.css';
 import html2canvas from 'html2canvas';
+import ColorCode from '../components/shared/ColorCode.jsx';
 
 const post = {
   id: 0,
   image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-  data: {},
+  data: {
+    color: ["#ffffff", "#fa5b9d", "#ffffff", "#fa5b9d"]
+  },
 }
 
 const PlayPage = () => {
@@ -45,7 +48,7 @@ const PlayPage = () => {
     html2canvas(screen).then(
       (canvas) => {
         const base64image = canvas.toDataURL('image/png');
-        //send to db
+        //call api
         console.log(base64image)
       }
     )
@@ -95,8 +98,8 @@ const PlayPage = () => {
 
           <ReflexElement className={styles.reflexElement} maxSize={424}>
             <div className={styles.previewContainer}>
-              <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef}/>
-              <img className={styles.target} src={post.image}/>
+              <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef} />
+              <img className={styles.target} src={post.image} />
               <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block>Submit</Button>
             </div>
           </ReflexElement>
@@ -109,8 +112,15 @@ const PlayPage = () => {
           </ReflexSplitter>
 
           <ReflexElement className={styles.reflexElement} maxSize={424}>
-            <div className={styles.previewContainer}>
-              <img className={styles.target} src={post.image}/>
+            <div className={styles.targetContainer}>
+              <img className={styles.target} src={post.image} />
+              <div className={styles.colorList}>
+                {
+                  post.data.color.map((i, k) => {
+                    return <ColorCode color={i} key={k} />
+                  })
+                }
+              </div>
             </div>
           </ReflexElement>
         </ReflexContainer>
