@@ -1,4 +1,4 @@
-/*import { Request, Response } from "express";
+import { Request, Response } from "express";
 import { PlayModel } from "../../../Model/Schema";
 import jwt from 'jsonwebtoken';
 import { secret_JWT } from "../../../config/config";
@@ -22,9 +22,12 @@ export const alreadyPlay = async (req: Request, res: Response) => {
         const UserID = (validToken as {userId: any}).userId;
 
         const alreadyPlay = await PlayModel.exists({userId: UserID, postId: postId});
-        if (alreadyPlay) 
-
+        if (!alreadyPlay) {
+            res.status(404).json({ message: "User doesn't play this post yet" });
+            return;
+        }
+        res.status(200).json({ message: "User already play this post"});
     } catch (error: any) {
         console.log(error.message);
     }
-};*/
+};
