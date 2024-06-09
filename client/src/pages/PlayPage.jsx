@@ -3,7 +3,7 @@ import { HTMLEditor, CSSEditor } from '../components/shared/Editors.jsx';
 import { useDebounce } from '../utils/useDebounce.jsx';
 import 'react-reflex/styles.css'
 import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 'react-reflex'
-import { Button } from 'rsuite';
+import { Button, Modal, Loader } from 'rsuite';
 import styles from './PlayPage.module.css';
 import html2canvas from 'html2canvas';
 import ColorCode from '../components/shared/ColorCode.jsx';
@@ -39,10 +39,11 @@ const PlayPage = () => {
     );
   }, [deboucedHtml, deboucedCss])
 
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const iframeRef = useRef(null)
 
   const handleSubmit = () => {
+    setIsSubmitting(true)
     const iframe = iframeRef.current;
     const screen = iframe.contentWindow.document.body;
     html2canvas(screen).then(
@@ -51,7 +52,7 @@ const PlayPage = () => {
         //call api
         console.log(base64image)
       }
-    )
+    ).then(setIsSubmitting(false))
   }
 
   return (
@@ -100,7 +101,9 @@ const PlayPage = () => {
             <div className={styles.previewContainer}>
               <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef} />
               <img className={styles.target} src={post.image} />
-              <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block>Submit</Button>
+              <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block loading={isSubmitting}>
+                Submit
+              </Button>
             </div>
           </ReflexElement>
 
