@@ -17,7 +17,7 @@ const guestPlaySubmit = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const { postId } = req.query;
         const { base64Image } = req.body;
-        const post = yield Schema_1.PostModel.findById(postId).populate("postImage").populate("userId");
+        const post = yield Schema_1.PostModel.findById(postId).populate("postImage");
         const postImage = yield Schema_2.ImageModel.findById(post === null || post === void 0 ? void 0 : post.postImage);
         const imageDiff = yield (0, compareImg_1.compareImg)(base64Image, postImage === null || postImage === void 0 ? void 0 : postImage.name);
         res.status(200).json({ message: `Score of differing pixels: ${imageDiff}%` });

@@ -45,7 +45,7 @@ const playSubmit = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             create_at: Date.now(),
         });
         yield play.save();
-        res.status(201).json({ message: "play successfully" });
+        res.status(201).json({ message: "play successfully", imageDiff });
     }
     catch (error) {
         console.log(error.message);
