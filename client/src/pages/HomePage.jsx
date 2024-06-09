@@ -122,8 +122,8 @@ const HomePage = () => {
 
         <div className={styles.postContainer}>
           {
-            data.map((i, k) => {
-              return <Post id={i.id} title={i.name} image={i.image.name} key={k}/>
+            postData.map((i, k) => {
+              return <Post id={i.id} title={i.name} image={i.postImage.name} key={k}/>
             })
           }
         </div>
