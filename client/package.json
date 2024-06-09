@@ -16,7 +16,6 @@
     "html2canvas": "^1.4.1",
     "localforage": "^1.10.0",
     "react": "^18.2.0",
-    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
     "react-reflex": "^4.2.6",

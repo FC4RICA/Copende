@@ -57,25 +57,19 @@ const data= [
   },
 ]
 
-const Welcome = () => {
+const HomePage = () => {
   return (
-    <div className={styles.welcomeContainer}>
+    <>
+      <div className={styles.contentContaniner}>
+        <div className={styles.welcomeContainer}>
           <div className={styles.content}>
             <h2>Welcome to LeechCode</h2>
-            <p>Learn and practice by Replicating the target images using CSS. Sign in to keep all of your records.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur. Nam consectetur nulla et urna ullamcorper, ac convallis felis ultrices. Vestibulum lobortis, sapien quis efficitur fermentum, nulla magna accumsan ipsum, a ornare dui urna at elit. Praesent vel convallis quam. Ut gravida consequat velit ut tempor. Donec nisl tellus, venenatis eu ultrices quis, euismod in ipsum.</p>
             <Button as={NavLink} href={`/signup`} appearance='primary' color='cyan'>
               Sign Up / Sign In
             </Button>
           </div>
         </div>
-  )
-}
-
-const HomePage = () => {
-  return (
-    <>
-      <div className={styles.contentContaniner}>
-        <Welcome />
 
         <div>
           <h2>Learning CSS</h2>
