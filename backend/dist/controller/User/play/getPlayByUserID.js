@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserByUserID = void 0;
+exports.getPlayByUserID = void 0;
 const Schema_1 = require("../../../Model/Schema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../../../config/config");
-const getUserByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getPlayByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = req.cookies.token;
         if (!token) {
@@ -29,17 +29,19 @@ const getUserByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function
             return false;
         }
         const UserID = validToken.userId;
-        const user = yield Schema_1.UserModel.findById(UserID);
-        if (!user) {
-            res.json({ message: "User not found" });
-            return false;
+        const plays = yield Schema_1.PlayModel.find({ userId: UserID }).populate({ path: 'postId', populate: { path: 'postImage' } });
+        if (plays.length > 0) {
+            res.status(200).json({ message: "Play data found", plays });
+            return;
         }
-        const { username, email, create_at } = user;
-        res.status(200).json({ username, email, create_at });
+        else {
+            res.status(404).json({ message: "No play data found" });
+            return;
+        }
     }
     catch (error) {
-        res.status(500).json({ message: "Internal Server Error" });
         console.log(error.message);
+        return res.status(500).json({ message: "Internal server error" });
     }
 });
-exports.getUserByUserID = getUserByUserID;
+exports.getPlayByUserID = getPlayByUserID;

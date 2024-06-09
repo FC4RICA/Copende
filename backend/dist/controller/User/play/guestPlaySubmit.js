@@ -9,16 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPostByPostID = void 0;
+exports.guestPlaySubmit = void 0;
 const Schema_1 = require("../../../Model/Schema");
-const getPostByPostID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const Schema_2 = require("../../../Model/Schema");
+const compareImg_1 = require("../../../util/compareImg");
+const guestPlaySubmit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.query;
-        const posts = yield Schema_1.PostModel.findById(postId).populate("postImage");
-        res.status(200).json(posts);
+        const { base64Image } = req.body;
+        const post = yield Schema_1.PostModel.findById(postId).populate("postImage");
+        const postImage = yield Schema_2.ImageModel.findById(post === null || post === void 0 ? void 0 : post.postImage);
+        const imageDiff = yield (0, compareImg_1.compareImg)(base64Image, postImage === null || postImage === void 0 ? void 0 : postImage.name);
+        res.status(200).json({ message: `Score of differing pixels: ${imageDiff}%` });
     }
     catch (error) {
         console.log(error.message);
     }
 });
-exports.getPostByPostID = getPostByPostID;
+exports.guestPlaySubmit = guestPlaySubmit;
