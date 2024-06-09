@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PlayModel } from "../../../Model/Schema";
 
+
 export const getPlayByPostID = async (req: Request, res: Response) => {
     try {
         const { postId } = req.query;

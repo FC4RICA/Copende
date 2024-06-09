@@ -19,7 +19,6 @@ export const getPlayByUserID = async (req: Request, res: Response) => {
         }
 
         const UserID = (validToken as {userId: any}).userId;
-
         const plays = await PlayModel.find({ userId: UserID }).populate({path: 'postId',populate: {path: 'postImage'}});
 
         if (plays.length > 0) {

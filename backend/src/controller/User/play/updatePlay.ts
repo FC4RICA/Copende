@@ -6,6 +6,7 @@ import { compareImg } from "../../../util/compareImg";
 import jwt from 'jsonwebtoken';
 import { secret_JWT } from "../../../config/config";
 
+
 export const updatePlay = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;

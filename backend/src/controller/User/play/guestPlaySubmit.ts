@@ -3,6 +3,7 @@ import { PostModel } from "../../../Model/Schema";
 import { ImageModel } from "../../../Model/Schema";
 import { compareImg } from "../../../util/compareImg";
 
+
 export const guestPlaySubmit = async (req: Request, res: Response) => {
     try {
         const { postId } = req.query;

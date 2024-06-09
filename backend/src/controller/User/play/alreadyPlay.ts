@@ -26,6 +26,7 @@ export const alreadyPlay = async (req: Request, res: Response) => {
             res.status(404).json({ message: "User doesn't play this post yet" });
             return;
         }
+        
         res.status(200).json({ message: "User already play this post"});
     } catch (error: any) {
         console.log(error.message);
