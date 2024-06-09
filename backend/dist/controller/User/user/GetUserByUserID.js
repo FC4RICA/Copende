@@ -34,8 +34,7 @@ const getUserByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function
             res.json({ message: "User not found" });
             return false;
         }
-        const { username, email, create_at } = user;
-        res.status(200).json({ username, email, create_at });
+        res.status(200).json(user);
     }
     catch (error) {
         res.status(500).json({ message: "Internal Server Error" });

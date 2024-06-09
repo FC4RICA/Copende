@@ -33,7 +33,6 @@ const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (user) {
             yield Schema_1.UserRoleModel.deleteMany({ userId: { $in: user._id } });
             yield user.deleteOne();
-            res.clearCookie("token");
             res.status(200).json({ message: "User Deleted" });
         }
         else {

@@ -30,7 +30,7 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const payload = jsonwebtoken_1.default.sign({ userId: user._id }, String(config_1.secret_JWT), { algorithm: "HS256" });
         res.cookie("token", payload, { httpOnly: true });
-        res.status(200).json({ message: "Login Success" });
+        res.status(200).json({ message: "Login Success", payload: payload });
     }
     catch (error) {
         console.log(error.message);

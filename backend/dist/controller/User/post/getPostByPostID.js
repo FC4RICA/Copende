@@ -14,7 +14,7 @@ const Schema_1 = require("../../../Model/Schema");
 const getPostByPostID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.query;
-        const posts = yield Schema_1.PostModel.findById(postId).populate("postImage");
+        const posts = yield Schema_1.PostModel.findById(postId).populate("postImage").populate("userId");
         res.status(200).json(posts);
     }
     catch (error) {

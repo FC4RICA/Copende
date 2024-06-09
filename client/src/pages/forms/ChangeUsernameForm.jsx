@@ -1,29 +1,43 @@
 import { Form, Schema, Button } from 'rsuite';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TextField from '../../components/shared/TextField';
+import { axiosInstance } from '../../api/axios';
 
 const { StringType } = Schema.Types;
 
 const model = Schema.Model({
-  username: StringType().minLength(6, 'Minimum 6 characters required').maxLength(16, 'Maximun at 16 character').isRequired()
+  newUsername: StringType().minLength(6, 'Minimum 6 characters required').maxLength(16, 'Maximun at 16 character').isRequired()
 });
 
 const ChangeUsernameForm = ({ user }) => {
   const formRef = useRef();
   const [formError, setFormError] = useState({});
   const [formValue, setFormValue] = useState({
-    username: user.username,
+    newUsername: user.username,
   });
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    setFormValue({
+      newUsername: user.username,
+    });
+  }, [user])
+
+
+  const handleSubmit = async () => {
     if (!formRef.current.check()) {
       console.error('Form Error');
       return
     }
-    console.log(formValue, 'Form Value')
-    console.log(formError);
+    console.log(formValue, 'Form Value');
+    try {
+      const response = await axiosInstance.put('/api/user/editUsername', formValue)
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
+  
   return(
     <Form 
       ref={formRef}
@@ -33,7 +47,7 @@ const ChangeUsernameForm = ({ user }) => {
       model={model}
       onSubmit={handleSubmit}
     >
-      <TextField name='username' label='Username' />
+      <TextField name='newUsername' label='newUsername' />
       <Button appearance='primary' type='submit' color='cyan'>
         Update Profile
       </Button>

@@ -1,22 +1,50 @@
 import { Button, Tabs, Modal } from 'rsuite';
 import styles from './SettingPage.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChangePasswordForm from './forms/ChangePasswordForm';
 import ChangeUsernameForm from './forms/ChangeUsernameForm';
 import { redirect, useNavigate } from 'react-router-dom';
-
-const user = {
-  userID: 1,
-  username: "qwerty"
-}
+import { axiosInstance } from '../api/axios';
 
 const SettingPage = () => {
+  const [user, setUser] = useState({
+    username: "",
+    email: ""
+  });
+
+  const getUserData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/user/getUserByuserID');
+      console.log(response);
+      if (response.status === 200 && response.data?.message !== "Unauthorized") {
+        setUser(response.data)
+      } else {
+        setUser(undefined)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, [])
+
   const [openAlert, setOpenAlert] = useState(false)
   const navigate = useNavigate()
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     setOpenAlert(false)
-    console.log('delete account')
-    navigate("/signin")
+    try {
+      const response = axiosInstance.delete('api/user/deleteAccount');
+      console.log(response);
+      if (response?.status == 200){
+        navigate("/signin")
+      } else {
+        console.log('unsucessfully delete account');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return(

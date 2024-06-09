@@ -28,7 +28,7 @@ export const playSubmit = async (req: Request, res: Response) => {
 
         const post = await PostModel.findById(postId).populate("postImage").populate("userId");
         const postImage = await ImageModel.findById(post?.postImage);
-        
+
         const imageDiff = await compareImg(base64Image,postImage?.name);
 
         const play = new PlayModel({
@@ -40,7 +40,7 @@ export const playSubmit = async (req: Request, res: Response) => {
         })
         await play.save();
 
-        res.status(201).json({message: "play successfully", imageDiff});
+        res.status(201).json({message: "play successfully"});
     } catch (error: any) {
         console.log(error.message);
     }
