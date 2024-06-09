@@ -1,5 +1,5 @@
 import styles from './Navbar.module.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, Dropdown } from 'rsuite';
 import NavLink from '../shared/NavLink'
 
@@ -9,11 +9,6 @@ import { FaCog } from 'react-icons/fa';
 
 const Navbar = () => {
   let location = useLocation()
-  const navigate = useNavigate()
-
-  const handleLogout = () => {
-    navigate('/signin')
-  }
 
   return(
     <>
@@ -39,7 +34,7 @@ const Navbar = () => {
           <Dropdown title='User' placement="bottomEnd" className={styles.dropdown}>
             <Dropdown.Item icon={<FaUser />} as={NavLink} href={`/profile/:profileId`} >View Profile</Dropdown.Item>
             <Dropdown.Item icon={<FaCog />} as={NavLink} href={`/setting/:profileId`} >Setting</Dropdown.Item>
-            <Dropdown.Item icon={<FaArrowRightFromBracket/>} className={styles.logoutItem} onClick={handleLogout}>Logout</Dropdown.Item>
+            <Dropdown.Item icon={<FaArrowRightFromBracket/>} className={styles.logoutItem}>Logout</Dropdown.Item>
           </Dropdown>
         </div>
 
