@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editUsername = void 0;
+exports.alreadyPlay = void 0;
 const Schema_1 = require("../../../Model/Schema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../../../config/config");
-const editUsername = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const alreadyPlay = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = req.cookies.token;
-        const { newUsername } = req.body;
+        const { postId } = req.query;
         if (!token) {
             res.json({ message: "Unauthorized" });
             return false;
@@ -30,14 +30,15 @@ const editUsername = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             return false;
         }
         const UserID = validToken.userId;
-        const user = yield Schema_1.UserModel.findByIdAndUpdate(UserID, { username: newUsername });
-        if (!user) {
-            res.status(400).json({ message: "user not found!" });
+        const alreadyPlay = yield Schema_1.PlayModel.exists({ userId: UserID, postId: postId });
+        if (!alreadyPlay) {
+            res.status(404).json({ message: "User doesn't play this post yet" });
+            return;
         }
-        res.status(200).json({ message: "user updated successfully" });
+        res.status(200).json({ message: "User already play this post" });
     }
     catch (error) {
         console.log(error.message);
     }
 });
-exports.editUsername = editUsername;
+exports.alreadyPlay = alreadyPlay;

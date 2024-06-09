@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { UserModel } from "../../../Model/Schema";
-import jwt from "jsonwebtoken";
+import { PlayModel } from "../../../Model/Schema";
+import jwt from 'jsonwebtoken';
 import { secret_JWT } from "../../../config/config";
 
-export const editUsername = async (req: Request, res: Response) => {
+export const alreadyPlay = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;
-        const {newUsername} = req.body;
+        const { postId } = req.query; 
 
         if (!token) {
             res.json({message: "Unauthorized"});
@@ -20,13 +20,15 @@ export const editUsername = async (req: Request, res: Response) => {
         }
 
         const UserID = (validToken as {userId: any}).userId;
-        
-        const user = await UserModel.findByIdAndUpdate(UserID, {username: newUsername});
-        if (!user) {
-            res.status(400).json({message: "user not found!"});
+
+        const alreadyPlay = await PlayModel.exists({userId: UserID, postId: postId});
+        if (!alreadyPlay) {
+            res.status(404).json({ message: "User doesn't play this post yet" });
+            return;
         }
-        res.status(200).json({message: "user updated successfully"})
-    } catch (error:any) {
+        
+        res.status(200).json({ message: "User already play this post"});
+    } catch (error: any) {
         console.log(error.message);
     }
 };
