@@ -29,7 +29,7 @@ export const playSubmit = async (req: Request, res: Response) => {
         const postImage = await ImageModel.findById(post?.postImage);
         
         const imageDiff = await compareImg(base64Image,postImage?.name);
-        console.log(imageDiff);
+
         const play = new PlayModel({
             userId: UserID,
             postId: postId,

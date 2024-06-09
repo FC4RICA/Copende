@@ -13,6 +13,7 @@ import { deleteAccount } from '../controller/User/user/deleteAccount';
 import { playSubmit } from '../controller/User/play/playSubmit';
 import { getPlay } from '../controller/User/play/getPlay';
 import { getPlayByUserID } from '../controller/User/play/getPlayByUserID';
+import { getPlayByPostID } from '../controller/User/play/getPlayByPostID';
 
 const router = express.Router();
 
@@ -39,5 +40,6 @@ router.get("/post/getPostByPostID", getPostByPostID);
 router.post("/play/playSubmit", playSubmit);
 router.get("/play/getPlay", getPlay);
 router.get("/play/getPlayByUserID", getPlayByUserID);
+router.get("/play/getPlayByPostID", getPlayByPostID);
 
 export default router;

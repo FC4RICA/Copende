@@ -37,7 +37,6 @@ const playSubmit = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const post = yield Schema_2.PostModel.findById(postId).populate("postImage").populate("userId");
         const postImage = yield Schema_3.ImageModel.findById(post === null || post === void 0 ? void 0 : post.postImage);
         const imageDiff = yield (0, compareImg_1.compareImg)(base64Image, postImage === null || postImage === void 0 ? void 0 : postImage.name);
-        console.log(imageDiff);
         const play = new Schema_1.PlayModel({
             userId: UserID,
             postId: postId,
