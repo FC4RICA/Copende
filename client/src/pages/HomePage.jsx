@@ -5,60 +5,6 @@ import { useEffect, useState } from 'react';
 import styles from './HomePage.module.css';
 import { axiosInstance } from '../api/axios';
 
-
-
-const data= [
-  {
-    id: 1,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-  {
-    id: 2,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-  {
-    id: 3,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-  {
-    id: 4,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-  {
-    id: 5,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-  {
-    id: 6,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-  {
-    id: 7,
-    title: "Lorem ipsum dolor sit amet, consectetur.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-    status: "O",
-    createAt: ""
-  },
-]
-
 const Welcome = () => {
   return (
     <>
