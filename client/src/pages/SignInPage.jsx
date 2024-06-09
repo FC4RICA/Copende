@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Schema, Button } from 'rsuite';
 import TextField from '../components/shared/TextField';
 import styles from './SignInPage.module.css';
-
+import { axiosInstance } from '../api/axios';
 
 const { StringType } = Schema.Types;
 
@@ -20,13 +20,21 @@ const SignInPage = () => {
     password: '',
   });
 
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formRef.current.check()) {
       console.error('Form Error');
       return
     }
-    console.log(formValue, 'Form Value')
+    console.log(formValue, 'Form Value');
+    try {
+      const response = await axiosInstance.post('/api/user/login', formValue);
+      navigate('/');
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return(

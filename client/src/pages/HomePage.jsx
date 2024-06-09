@@ -1,8 +1,10 @@
 import { Button } from 'rsuite';
 import Post from '../components/shared/Post';
 import NavLink from '../components/shared/NavLink';
-
+import { useEffect, useState } from 'react';
 import styles from './HomePage.module.css';
+import { axiosInstance } from '../api/axios';
+
 
 
 const data= [
@@ -57,10 +59,9 @@ const data= [
   },
 ]
 
-const HomePage = () => {
+const Welcome = () => {
   return (
     <>
-      <div className={styles.contentContaniner}>
         <div className={styles.welcomeContainer}>
           <div className={styles.content}>
             <h2>Welcome to LeechCode</h2>
@@ -70,6 +71,35 @@ const HomePage = () => {
             </Button>
           </div>
         </div>
+    </>
+  )
+}
+
+const HomePage = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
+  const getUserData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/user/getUserByUserID');
+      console.log(response)
+      if (response.status === 200 && response.data?.message !== "Unauthorized") {
+        setIsLogin(true)
+      } else {
+        setIsLogin(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, [])
+
+  return (
+    <>
+      <div className={styles.contentContaniner}>
+        {!isLogin && <Welcome />}
 
         <div>
           <h2>Learning CSS</h2>

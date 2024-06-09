@@ -48,11 +48,11 @@ const router = createBrowserRouter([
         element: <PlayPage />,
       },
       {
-        path: '/profile/:profileId',
+        path: '/profile',
         element: <ProfilePage />,
       },
       {
-        path: '/setting/:profileId',
+        path: '/setting',
         element: <SettingPage />,
       },
       {

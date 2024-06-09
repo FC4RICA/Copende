@@ -1,9 +1,9 @@
 import { Form, Schema, Button } from 'rsuite';
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TextField from '../components/shared/TextField';
 import styles from './SignUpPage.module.css';
-
+import { axiosInstance } from '../api/axios';
 
 const { StringType } = Schema.Types;
 
@@ -24,12 +24,33 @@ const SignUpPage = () => {
     confirmPassword: '',
   });
 
-  const handleSubmit = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
     if (!formRef.current.check()) {
       console.error('Form Error');
       return
     }
-    console.log(formValue, 'Form Value')
+    try {
+      const response = await axiosInstance.post('api/user/register',
+        JSON.stringify(formValue),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
+      );
+      console.log(response);
+      console.log(JSON.stringify(response));
+      navigate('/')
+      window.location.reload()
+    } catch (error) {
+      if(!error?.response){
+        console.log("Sever is not responding");
+      }
+      console.log(error);
+      if(error.response?.ststus == 409){
+        console.log("username or email aleary exists");
+      }
+    }
   }
 
   return(
