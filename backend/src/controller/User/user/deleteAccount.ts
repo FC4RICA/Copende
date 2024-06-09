@@ -24,6 +24,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
         if (user){
             await UserRoleModel.deleteMany({userId: {$in: user._id}})
             await user.deleteOne();
+            res.clearCookie("token");
             res.status(200).json({message:"User Deleted"});
         }else{
             res.status(404).json({message:"User Not Found"});

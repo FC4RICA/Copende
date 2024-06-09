@@ -15,6 +15,7 @@ import { getPlay } from '../controller/User/play/getPlay';
 import { getPlayByUserID } from '../controller/User/play/getPlayByUserID';
 import { getPlayByPostID } from '../controller/User/play/getPlayByPostID';
 import { alreadyPlay } from '../controller/User/play/alreadyPlay';
+import { updatePlay } from '../controller/User/play/updatePlay';
 
 const router = express.Router();
 
@@ -43,5 +44,6 @@ router.get("/play/getPlay", getPlay);
 router.get("/play/getPlayByUserID", getPlayByUserID);
 router.get("/play/getPlayByPostID", getPlayByPostID);
 router.get("/play/alreadyPlay", alreadyPlay);
+router.put("/play/updatePlay", updatePlay);
 
 export default router;
