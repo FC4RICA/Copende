@@ -16,6 +16,7 @@ const EditUsername_1 = require("../controller/User/user/EditUsername");
 const EditPassword_1 = require("../controller/User/user/EditPassword");
 const deleteAccount_1 = require("../controller/User/user/deleteAccount");
 const playSubmit_1 = require("../controller/User/play/playSubmit");
+const getPlay_1 = require("../controller/User/play/getPlay");
 const router = express_1.default.Router();
 router.get("/", (req, res) => {
     res.send({
@@ -35,4 +36,5 @@ router.get("/post/getPost", getPost_1.getPost);
 router.get("/post/getPostByPostID", getPostByPostID_1.getPostByPostID);
 //Play management
 router.post("/play/playSubmit", playSubmit_1.playSubmit);
+router.get("/play/getPlay", getPlay_1.getPlay);
 exports.default = router;
