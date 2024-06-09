@@ -24,10 +24,13 @@ export const getPlayByUserID = async (req: Request, res: Response) => {
 
         if (plays.length > 0) {
             res.status(200).json({ message: "Play data found", plays });
+            return;
         } else {
             res.status(404).json({ message: "No play data found" });
+            return;
         }
     } catch (error:any) {
         console.log(error.message);
+        return res.status(500).json({ message: "Internal server error" });
     }
 };
