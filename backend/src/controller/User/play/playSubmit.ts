@@ -27,7 +27,7 @@ export const playSubmit = async (req: Request, res: Response) => {
 
         const post = await PostModel.findById(postId).populate("postImage").populate("userId");
         const postImage = await ImageModel.findById(post?.postImage);
-
+        
         const imageDiff = await compareImg(base64Image,postImage?.name);
 
         const play = new PlayModel({
