@@ -20,6 +20,7 @@ const getPlay_1 = require("../controller/User/play/getPlay");
 const getPlayByUserID_1 = require("../controller/User/play/getPlayByUserID");
 const getPlayByPostID_1 = require("../controller/User/play/getPlayByPostID");
 const alreadyPlay_1 = require("../controller/User/play/alreadyPlay");
+const updatePlay_1 = require("../controller/User/play/updatePlay");
 const router = express_1.default.Router();
 router.get("/", (req, res) => {
     res.send({
@@ -43,4 +44,5 @@ router.get("/play/getPlay", getPlay_1.getPlay);
 router.get("/play/getPlayByUserID", getPlayByUserID_1.getPlayByUserID);
 router.get("/play/getPlayByPostID", getPlayByPostID_1.getPlayByPostID);
 router.get("/play/alreadyPlay", alreadyPlay_1.alreadyPlay);
+router.put("/play/updatePlay", updatePlay_1.updatePlay);
 exports.default = router;
