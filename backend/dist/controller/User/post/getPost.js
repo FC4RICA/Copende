@@ -13,7 +13,7 @@ exports.getPost = void 0;
 const Schema_1 = require("../../../Model/Schema");
 const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const posts = yield Schema_1.PostModel.find().populate("postImage").populate("userId");
+        const posts = yield Schema_1.PostModel.find().populate("postImage");
         res.status(200).json(posts);
     }
     catch (error) {
