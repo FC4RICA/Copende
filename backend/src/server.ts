@@ -1,5 +1,11 @@
 import express from "express";
 import cors from "cors";
+import { PORT, MONGO_URI } from "./config/config";
+import userRouter from "./Router/userRouter"
+import adminRouter from "./Router/adminRouter"
+import mongoose from "mongoose";
+import cookieParser from 'cookie-parser';
+import multer from "multer";
 
 const app = express();
 app.use(
@@ -8,8 +14,14 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
+app.use(express.json());
 
-const PORT = 8080;
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+});
+
+app.use(multerMid.single("file"));
 
 app.get("/", async (req, res) => {
   res.send({
@@ -17,10 +29,14 @@ app.get("/", async (req, res) => {
   });
 });
 
+app.use("/api/user",userRouter)
+app.use("/api/admin", adminRouter)
+
 app.listen(PORT, async () => {
-  try {
+  try {    
+    mongoose.connect(MONGO_URI);
     console.log(`Server is running at http://localhost:${PORT}`);
   } catch (error: any) {
-    console.log("server error");
+    console.log("server error", error.message);
   }
 });

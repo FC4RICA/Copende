@@ -1,25 +1,29 @@
-import { Response, Request, NextFunction } from "express";
-
-export const validateToken = (req: Request, res: Response, next: NextFunction) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isLogin = exports.validateToken = void 0;
+const validateToken = (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
             return res.status(401).json({ message: "Unauthorized" });
         }
         next();
-    } catch (error: any) {
+    }
+    catch (error) {
         console.log(error.message);
     }
 };
-
-export const isLogin = (req: Request, res: Response, next: NextFunction) => {
+exports.validateToken = validateToken;
+const isLogin = (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (token) {
             return res.status(409).json({ message: "Already login" });
         }
         next();
-    } catch (error: any) {
+    }
+    catch (error) {
         console.log(error.message);
     }
 };
+exports.isLogin = isLogin;

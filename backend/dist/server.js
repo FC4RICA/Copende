@@ -14,22 +14,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const config_1 = require("./config/config");
+const userRouter_1 = __importDefault(require("./Router/userRouter"));
+const adminRouter_1 = __importDefault(require("./Router/adminRouter"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const multer_1 = __importDefault(require("multer"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     origin: "http://localhost:5173",
     credentials: true,
 }));
-const PORT = 8080;
+app.use((0, cookie_parser_1.default)());
+app.use(express_1.default.json());
+const multerMid = (0, multer_1.default)({
+    storage: multer_1.default.memoryStorage(),
+});
+app.use(multerMid.single("file"));
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send({
         message: "Hello World",
     });
 }));
-app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
+app.use("/api/user", userRouter_1.default);
+app.use("/api/admin", adminRouter_1.default);
+app.listen(config_1.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(`Server is running at http://localhost:${PORT}`);
+        mongoose_1.default.connect(config_1.MONGO_URI);
+        console.log(`Server is running at http://localhost:${config_1.PORT}`);
     }
     catch (error) {
-        console.log("server error");
+        console.log("server error", error.message);
     }
 }));
