@@ -25,8 +25,7 @@ export const getUserByUserID = async (req: Request,res: Response) => {
             return false;
         }
 
-        const { username, email , create_at} = user;
-        res.status(200).json({ username, email , create_at});
+        res.status(200).json(user);
     } catch (error:any) {
         res.status(500).json({message: "Internal Server Error"});
         console.log(error.message);

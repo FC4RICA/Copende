@@ -39,7 +39,7 @@ export const playSubmit = async (req: Request, res: Response) => {
         })
         await play.save();
 
-        res.status(201).json({message: "play successfully", imageDiff});
+        res.status(201).json({message: "play successfully"});
     } catch (error: any) {
         console.log(error.message);
     }
