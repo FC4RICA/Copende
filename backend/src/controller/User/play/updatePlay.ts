@@ -43,8 +43,8 @@ export const updatePlay = async (req: Request, res: Response) => {
             return;
         }
 
-        if (parseFloat(newImageDiff) >= play?.score){
-            play.score = parseFloat(newImageDiff);
+        if (newImageDiff >= play?.score){
+            play.score = newImageDiff;
             play.char_num = char_num;
             await play.save();
             res.status(200).json({message: "update play successfully"});

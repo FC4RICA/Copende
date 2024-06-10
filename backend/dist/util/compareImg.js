@@ -31,7 +31,7 @@ const compareImg = (file, imgUrl) => __awaiter(void 0, void 0, void 0, function*
         const diff = new pngjs_1.PNG({ width, height });
         const numDiffPixels = (0, pixelmatch_1.default)(referenceImage.data, uploadedImage.data, diff.data, width, height, { threshold: 0.1 });
         const score = 100 - ((numDiffPixels / (width * height)) * 100);
-        return score.toFixed(2);
+        return parseFloat(score.toFixed(2));
     }
     catch (error) {
         console.log(error.message);
