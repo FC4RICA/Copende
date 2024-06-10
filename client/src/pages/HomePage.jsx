@@ -23,7 +23,7 @@ const Welcome = () => {
 
 const HomePage = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const {postData, setPostData} = useState([])
+  const [postData, setPostData] = useState([])
 
   const getUserData = async () => {
     try {
@@ -42,10 +42,8 @@ const HomePage = () => {
   const getPostData = async () => {
     try {
       const response = await axiosInstance.get('api/user/post/getPost');
-      console.log(response);
-      if (response?.status === 200) {
-        setPostData(response.data)
-      }
+      console.log(response.data);
+      setPostData(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +67,7 @@ const HomePage = () => {
         <div className={styles.postContainer}>
           {
             postData.map((i, k) => {
-              return <Post id={i.id} title={i.name} image={i.postImage.name} key={k}/>
+              return <Post id={i._id} title={i.name} image={i.postImage.name} key={k}/>
             })
           }
         </div>
