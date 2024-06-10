@@ -109,19 +109,26 @@ const PlayPage = () => {
           const response = await axiosInstance.post('/api/user/play/updatePlay?postId=' + postId, {
             base64Image: base64image, 
             char_num: htmlValue.length + cssValue.length
-          })
+          });
+          if (response.data.score > playData.score) {
+            setPlayData(response.data)
+          }
         } else {
           const response = await axiosInstance.post('/api/user/play/playSubmit?postId=' + postId, {
             base64Image: base64image, 
             char_num: htmlValue.length + cssValue.length
-          })
+          });
+          setIsPlayed(true)
+          setPlayData(response.data)
         }
         console.log(response);
         setIsLoading(false);
       } else {
         const response = await axiosInstance.post('/api/user/play/guestPlaySubmit?postId=' + postId, {
           base64Image: base64image
-        })
+        });
+        setIsPlayed(true)
+        setPlayData(response.data)
         console.log(response);
         setIsLoading(false);
       }
@@ -179,7 +186,7 @@ const PlayPage = () => {
               <img className={styles.target} src={postData.postImage.name}/>
               <fieldset >
                 <legend align='center'>Highest Match</legend>
-                <h3>{playData.score + '%'}</h3>
+                <h3>{isplayed ? playData.score + '%': 'no data'}</h3>
               </fieldset>
               <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block loading={isLoading}>Submit</Button>
             </div>
