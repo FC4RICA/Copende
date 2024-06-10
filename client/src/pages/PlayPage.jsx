@@ -17,6 +17,24 @@ const post = {
 }
 
 const PlayPage = () => {
+  const [isLogin, setIsLogin] = useState(false)
+  const getUserData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/user/getUserByUserID');
+      console.log(response)
+      if (response.status === 200 && response.data?.message !== "Unauthorized") {
+        setIsLogin(true)
+      } else {
+        setIsLogin(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUserData();
+  }, [])
+
   const [postData, setPostData] = useState({
     postImage: {
       name: ""
@@ -62,16 +80,27 @@ const PlayPage = () => {
 
   const iframeRef = useRef(null)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const iframe = iframeRef.current;
     const screen = iframe.contentWindow.document.body;
-    html2canvas(screen).then(
-      (canvas) => {
-        const base64image = canvas.toDataURL('image/png');
-        //send to db
-        console.log(base64image)
+    const canvas = await html2canvas(screen)
+    const base64image = canvas.toDataURL('image/png');
+    try {
+      if (isLogin) {
+        const response = await axiosInstance.post('/api/user/play/playSubmit?postId=' + postId, {
+          base64Image: base64image, 
+          char_num: htmlValue.length() + cssValue.length()
+        })
+        console.log(response);
+      } else {
+        const response = await axiosInstance.post('/api/user/play/guestPlaySubmit?postId=' + postId, {
+          base64Image: base64image
+        })
+        console.log(response);
       }
-    )
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
