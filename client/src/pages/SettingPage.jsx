@@ -5,6 +5,7 @@ import ChangePasswordForm from './forms/ChangePasswordForm';
 import ChangeUsernameForm from './forms/ChangeUsernameForm';
 import { redirect, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../api/axios';
+import Alert from '../components/shared/Alert';
 
 const SettingPage = () => {
   const [user, setUser] = useState({
@@ -72,19 +73,7 @@ const SettingPage = () => {
         </div>
       </div>
 
-      <Modal backdrop="static" role="alertdialog" open={openAlert}>
-        <Modal.Body>
-          You can't recover your account. Are you sure you want to delete this account. 
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleDeleteAccount} appearance="primary" color='red'>
-            Comfirm
-          </Button>
-          <Button onClick={() => setOpenAlert(false)}>
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <Alert open={openAlert} onComfirm={handleDeleteAccount} onCancle={() => setOpenAlert(false)} text={"You can't recover your account. Are you sure you want to delete this account."}/>
     </div>
     </>
 
