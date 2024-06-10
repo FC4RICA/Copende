@@ -10,12 +10,6 @@ import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../api/axios.jsx';
 import ColorCode from '../components/shared/ColorCode.jsx'
 
-const post = {
-  id: 0,
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
-  data: {},
-}
-
 const PlayPage = () => {
   const [isLogin, setIsLogin] = useState(false)
   const getUserData = async () => {
@@ -77,10 +71,12 @@ const PlayPage = () => {
     );
   }, [deboucedHtml, deboucedCss])
 
-
+  const [isLoading, setIsLoading] = useState(false)
+  
   const iframeRef = useRef(null)
 
   const handleSubmit = async () => {
+    setIsLoading(true)
     const iframe = iframeRef.current;
     const screen = iframe.contentWindow.document.body;
     const canvas = await html2canvas(screen)
@@ -92,14 +88,17 @@ const PlayPage = () => {
           char_num: htmlValue.length() + cssValue.length()
         })
         console.log(response);
+        setIsLoading(true)
       } else {
         const response = await axiosInstance.post('/api/user/play/guestPlaySubmit?postId=' + postId, {
           base64Image: base64image
         })
         console.log(response);
+        setIsLoading(true)
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(true)
     }
   }
 
@@ -149,7 +148,7 @@ const PlayPage = () => {
             <div className={styles.previewContainer}>
               <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef}/>
               <img className={styles.target} src={postData.postImage.name}/>
-              <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block>Submit</Button>
+              <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block loading={isLoading}>Submit</Button>
             </div>
           </ReflexElement>
 
