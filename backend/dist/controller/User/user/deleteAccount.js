@@ -20,29 +20,29 @@ const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const token = req.cookies.token;
         if (!token) {
-            res.json({ message: "Unauthorized" });
-            return false;
+            res.status(401).json({ message: "Unauthorized" });
+            return;
         }
         const validToken = jsonwebtoken_1.default.verify(token, String(config_1.secret_JWT));
         if (!validToken) {
-            res.json({ message: "Unauthorized" });
-            return false;
+            res.status(401).json({ message: "Unauthorized" });
+            return;
         }
         const UserID = validToken.userId;
         const user = yield Schema_1.UserModel.findById(UserID);
         if (user) {
             yield Schema_1.UserRoleModel.deleteMany({ userId: { $in: user._id } });
             yield user.deleteOne();
-            res.clearCookie(token);
+            res.clearCookie("token");
             res.status(200).json({ message: "User Deleted" });
-            return;
         }
         else {
             res.status(404).json({ message: "User Not Found" });
         }
     }
     catch (error) {
-        console.log(error.message);
+        console.error(error.message);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 exports.deleteAccount = deleteAccount;
