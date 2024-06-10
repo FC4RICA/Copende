@@ -3,7 +3,7 @@ import styles from './SettingPage.module.css';
 import { useEffect, useState } from 'react';
 import ChangePasswordForm from './forms/ChangePasswordForm';
 import ChangeUsernameForm from './forms/ChangeUsernameForm';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../api/axios';
 import Alert from '../components/shared/Alert';
 
@@ -19,6 +19,7 @@ const SettingPage = () => {
       console.log(response);
       if (response.status === 200 && response.data?.message !== "Unauthorized") {
         setUser(response.data)
+        window.location.reload();
       } else {
         setUser(undefined)
       }

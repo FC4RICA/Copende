@@ -8,6 +8,7 @@ import styles from './PlayPage.module.css';
 import html2canvas from 'html2canvas';
 import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../api/axios.jsx';
+import ColorCode from '../components/shared/ColorCode.jsx'
 
 const post = {
   id: 0,
@@ -16,16 +17,34 @@ const post = {
 }
 
 const PlayPage = () => {
-  const [postData, setPostData] = useState({
-    image: "",
-    data: {
-      colors: []
+  const [isLogin, setIsLogin] = useState(false)
+  const getUserData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/user/getUserByUserID');
+      console.log(response)
+      if (response.status === 200 && response.data?.message !== "Unauthorized") {
+        setIsLogin(true)
+      } else {
+        setIsLogin(false)
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
+  useEffect(() => {
+    getUserData();
+  }, [])
+
+  const [postData, setPostData] = useState({
+    postImage: {
+      name: ""
+    },
+    data: []
   })
   const { postId } = useParams();
   const getPostData = async () => {
     try {
-      const response = axiosInstance.get('api/user/post/getPostByPostID?postId=' + postId);
+      const response = await axiosInstance.get('api/user/post/getPostByPostID?postId=' + postId);
       console.log(response);
       setPostData(response.data)
     } catch (error) {
@@ -61,16 +80,27 @@ const PlayPage = () => {
 
   const iframeRef = useRef(null)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const iframe = iframeRef.current;
     const screen = iframe.contentWindow.document.body;
-    html2canvas(screen).then(
-      (canvas) => {
-        const base64image = canvas.toDataURL('image/png');
-        //send to db
-        console.log(base64image)
+    const canvas = await html2canvas(screen)
+    const base64image = canvas.toDataURL('image/png');
+    try {
+      if (isLogin) {
+        const response = await axiosInstance.post('/api/user/play/playSubmit?postId=' + postId, {
+          base64Image: base64image, 
+          char_num: htmlValue.length() + cssValue.length()
+        })
+        console.log(response);
+      } else {
+        const response = await axiosInstance.post('/api/user/play/guestPlaySubmit?postId=' + postId, {
+          base64Image: base64image
+        })
+        console.log(response);
       }
-    )
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -118,7 +148,7 @@ const PlayPage = () => {
           <ReflexElement className={styles.reflexElement} maxSize={424}>
             <div className={styles.previewContainer}>
               <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef}/>
-              <img className={styles.target} src={post.image}/>
+              <img className={styles.target} src={postData.postImage.name}/>
               <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block>Submit</Button>
             </div>
           </ReflexElement>
@@ -132,10 +162,10 @@ const PlayPage = () => {
 
           <ReflexElement className={styles.reflexElement} maxSize={424}>
             <div className={styles.targetContainer}>
-              <img className={styles.target} src={post.image} />
+              <img className={styles.target} src={postData.postImage.name} />
               <div className={styles.colorList}>
                 {
-                  post.data.color.map((i, k) => {
+                  postData.data.map((i, k) => {
                     return <ColorCode color={i} key={k} />
                   })
                 }
