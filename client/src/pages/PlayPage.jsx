@@ -12,16 +12,19 @@ import ColorCode from '../components/shared/ColorCode.jsx'
 
 const PlayPage = () => {
   const { postId } = useParams();
-  const [isLogin, setIsLogin] = useState(false)
-  const [playData, setPlayData] = useState()
+  const [isLogin, setIsLogin] = useState(false);
+  const [playData, setPlayData] = useState({
+    score: 0
+  });
+  const [isplayed, setIsPlayed] = useState(false);
   const getUserData = async () => {
     try {
       const response = await axiosInstance.get('/api/user/getUserByUserID');
-      console.log(response)
+      console.log(response);
       if (response.status === 200 && response.data?.message !== "Unauthorized") {
-        setIsLogin(true)
+        setIsLogin(true);
       } else {
-        setIsLogin(false)
+        setIsLogin(false);
       }
     } catch (error) {
       console.log(error);
@@ -31,6 +34,12 @@ const PlayPage = () => {
     try {
       const response = await axiosInstance.get('/api/user/play/alreadyPlay?postId=' + postId);
       console.log(response);
+      if (response?.status === 200) {
+        setIsPlayed(true)
+        setPlayData(response.data)
+      } else {
+        setIsPlayed(false)
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,6 +47,10 @@ const PlayPage = () => {
   useEffect(() => {
     getUserData();
   }, [])
+
+  useEffect(() => {
+    getPlayData();
+  }, [isplayed])
 
   const [postData, setPostData] = useState({
     postImage: {
@@ -49,7 +62,7 @@ const PlayPage = () => {
     try {
       const response = await axiosInstance.get('api/user/post/getPostByPostID?postId=' + postId);
       console.log(response);
-      setPostData(response.data)
+      setPostData(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -80,34 +93,41 @@ const PlayPage = () => {
     );
   }, [deboucedHtml, deboucedCss])
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   
-  const iframeRef = useRef(null)
+  const iframeRef = useRef(null);
 
   const handleSubmit = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const iframe = iframeRef.current;
     const screen = iframe.contentWindow.document.body;
     const canvas = await html2canvas(screen)
     const base64image = canvas.toDataURL('image/png');
     try {
       if (isLogin) {
-        const response = await axiosInstance.post('/api/user/play/playSubmit?postId=' + postId, {
-          base64Image: base64image, 
-          char_num: htmlValue.length() + cssValue.length()
-        })
+        if (isplayed) {
+          const response = await axiosInstance.post('/api/user/play/updatePlay?postId=' + postId, {
+            base64Image: base64image, 
+            char_num: htmlValue.length() + cssValue.length()
+          })
+        } else {
+          const response = await axiosInstance.post('/api/user/play/playSubmit?postId=' + postId, {
+            base64Image: base64image, 
+            char_num: htmlValue.length() + cssValue.length()
+          })
+        }
         console.log(response);
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
         const response = await axiosInstance.post('/api/user/play/guestPlaySubmit?postId=' + postId, {
           base64Image: base64image
         })
         console.log(response);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -157,6 +177,10 @@ const PlayPage = () => {
             <div className={styles.previewContainer}>
               <iframe srcDoc={outputValue} className={styles.preview} ref={iframeRef}/>
               <img className={styles.target} src={postData.postImage.name}/>
+              <fieldset >
+                <legend align='center'>Highest Match</legend>
+                <h3>{playData.score + '%'}</h3>
+              </fieldset>
               <Button onClick={handleSubmit} className={styles.submitButton} appearance='primary' color='cyan' block loading={isLoading}>Submit</Button>
             </div>
           </ReflexElement>
