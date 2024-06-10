@@ -14,7 +14,7 @@ export const guestPlaySubmit = async (req: Request, res: Response) => {
         
         const imageDiff = await compareImg(base64Image,postImage?.name);
 
-        res.status(200).json({message: `Score of differing pixels: ${imageDiff}%`});
+        res.status(200).json({message: `Score of differing pixels: ${imageDiff}%`, imageDiff});
     } catch (error: any) {
         console.log(error.message);
     }

@@ -17,6 +17,7 @@ const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const post = yield Schema_1.PostModel.findById(postId);
         if (post) {
             yield Schema_1.ImageModel.deleteMany({ _id: { $in: post.postImage } });
+            yield Schema_1.PlayModel.deleteMany({ postId: postId });
             yield post.deleteOne();
             res.status(200).json({ message: "Post Deleted" });
         }
