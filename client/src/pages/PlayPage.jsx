@@ -11,7 +11,9 @@ import { axiosInstance } from '../api/axios.jsx';
 import ColorCode from '../components/shared/ColorCode.jsx'
 
 const PlayPage = () => {
+  const { postId } = useParams();
   const [isLogin, setIsLogin] = useState(false)
+  const [playData, setPlayData] = useState()
   const getUserData = async () => {
     try {
       const response = await axiosInstance.get('/api/user/getUserByUserID');
@@ -25,6 +27,14 @@ const PlayPage = () => {
       console.log(error);
     }
   };
+  const getPlayData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/user/play/alreadyPlay?postId=' + postId);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     getUserData();
   }, [])
@@ -35,7 +45,6 @@ const PlayPage = () => {
     },
     data: []
   })
-  const { postId } = useParams();
   const getPostData = async () => {
     try {
       const response = await axiosInstance.get('api/user/post/getPostByPostID?postId=' + postId);
@@ -88,17 +97,17 @@ const PlayPage = () => {
           char_num: htmlValue.length() + cssValue.length()
         })
         console.log(response);
-        setIsLoading(true)
+        setIsLoading(false)
       } else {
         const response = await axiosInstance.post('/api/user/play/guestPlaySubmit?postId=' + postId, {
           base64Image: base64image
         })
         console.log(response);
-        setIsLoading(true)
+        setIsLoading(false)
       }
     } catch (error) {
       console.log(error);
-      setIsLoading(true)
+      setIsLoading(false)
     }
   }
 

@@ -19,7 +19,6 @@ const SettingPage = () => {
       console.log(response);
       if (response.status === 200 && response.data?.message !== "Unauthorized") {
         setUser(response.data)
-        window.location.reload();
       } else {
         setUser(undefined)
       }
@@ -39,11 +38,8 @@ const SettingPage = () => {
     try {
       const response = axiosInstance.delete('api/user/deleteAccount');
       console.log(response);
-      if (response?.status == 200){
-        navigate("/signin")
-      } else {
-        console.log('unsucessfully delete account');
-      }
+      navigate("/signin");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
