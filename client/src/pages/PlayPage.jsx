@@ -131,8 +131,15 @@ const PlayPage = () => {
           </ReflexSplitter>
 
           <ReflexElement className={styles.reflexElement} maxSize={424}>
-            <div className={styles.previewContainer}>
-              <img className={styles.target} src={post.image}/>
+            <div className={styles.targetContainer}>
+              <img className={styles.target} src={post.image} />
+              <div className={styles.colorList}>
+                {
+                  post.data.color.map((i, k) => {
+                    return <ColorCode color={i} key={k} />
+                  })
+                }
+              </div>
             </div>
           </ReflexElement>
         </ReflexContainer>

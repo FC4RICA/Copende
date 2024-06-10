@@ -46,6 +46,9 @@
   text-orientation: mixed;
   padding: 8px 2px;
   font-size: 14px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
 }
 
 
