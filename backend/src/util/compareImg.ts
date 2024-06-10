@@ -30,7 +30,7 @@ export const compareImg = async (file: any, imgUrl: any) => {
         );    
 
         const score = 100 - ((numDiffPixels / (width * height)) * 100);
-        return score.toFixed(2);
+        return parseFloat(score.toFixed(2));
     } catch (error:any) {
         console.log(error.message);
     }

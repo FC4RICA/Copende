@@ -47,8 +47,8 @@ const updatePlay = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(400).json({ message: "score not defined" });
             return;
         }
-        if (parseFloat(newImageDiff) >= (play === null || play === void 0 ? void 0 : play.score)) {
-            play.score = parseFloat(newImageDiff);
+        if (newImageDiff >= (play === null || play === void 0 ? void 0 : play.score)) {
+            play.score = newImageDiff;
             play.char_num = char_num;
             yield play.save();
             res.status(200).json({ message: "update play successfully" });
