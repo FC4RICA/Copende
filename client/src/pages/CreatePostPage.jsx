@@ -9,10 +9,13 @@ import html2canvas from 'html2canvas';
 import { useNavigate } from 'react-router-dom';
 import PlusIcon from '@rsuite/icons/Plus';
 import MinusIcon from '@rsuite/icons/Minus';
+import TextField from '../components/shared/TextField.jsx';
+import { axiosInstance } from '../api/axios.jsx';
 
 const { ArrayType, StringType } = Schema.Types;
 const model = Schema.Model({
-  colors: ArrayType().of(
+  name: StringType().isRequired(),
+  data: ArrayType().of(
     StringType().isRequired('Required.')
   )
 });
@@ -114,24 +117,31 @@ const CreatePostPage = () => {
   const formRef = useRef();
   const [formError, setFormError] = React.useState({});
   const [formValue, setFormValue] = React.useState({
-    colors: ['']
+    name: '',
+    data: ['']
   });
 
   const navigate = useNavigate()
 
   const iframeRef = useRef(null)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const iframe = iframeRef.current;
     const screen = iframe.contentWindow.document.body;
-    html2canvas(screen).then(
-      (canvas) => {
-        const base64image = canvas.toDataURL('image/png');
-        //send to db
-        console.log(base64image)
-        navigate('/admin')
-      }
-    )
+    const canvas = await html2canvas(screen);
+    const base64image = canvas.toDataURL('image/png');
+    try {
+      const response = await axiosInstance.post('api/admin/post/createPost', {
+        base64Image: base64image, 
+        name: formValue.name,
+        data: formValue.data
+      })
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    navigate('/admin');
+    window.location.reload();
   }
 
   return(
@@ -188,7 +198,8 @@ const CreatePostPage = () => {
                 onSubmit={handleSubmit}
                 className={styles.formContainer}
               >
-                <Form.Control name='colors' accepter={ColorInputControl} fieldError={formError.colors}/>
+                <TextField name='name' label='Name'/>
+                <Form.Control name='data' accepter={ColorInputControl} fieldError={formError.colors}/>
                 <Button className={styles.submitButton} type='submit' appearance='primary' color='cyan' block>
                   Create Post
                 </Button>

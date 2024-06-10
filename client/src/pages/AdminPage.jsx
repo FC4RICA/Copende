@@ -3,9 +3,12 @@ import Post from '../components/shared/Post';
 import styles from './AdminPage.module.css'
 import NavLink from '../components/shared/NavLink'
 import { FaPlus } from "react-icons/fa6";
+import { useEffect, useState } from 'react';
+import { axiosInstance } from '../api/axios';
+import DeletePost from '../components/shared/DeletePost';
 
 const AdminPage = () => {
-  const [postData, setPostData] = useState([])
+  const [postData, setPostData] = useState([]);
 
   const getPostData = async () => {
     try {
@@ -36,7 +39,7 @@ const AdminPage = () => {
         <div className={styles.postContainer}>
           {
             postData.map((i, k) => {
-              return <Post id={i.id} title={i.title} image={i.image} status={i.status} key={k}/>
+              return <DeletePost id={i._id} title={i.name} image={i.postImage.name} key={k}/>
             })
           }
         </div>
