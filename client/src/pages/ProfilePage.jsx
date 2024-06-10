@@ -15,6 +15,11 @@ const ProfilePage = () => {
     create_at: "",
     email: ""
   })
+  const [userData, setUserData] = useState({
+    gamePlayed: 0,
+    avgMatch: 0,
+    avgCharacter: 0
+  })
 
   const getUserData = async () => {
     try {
@@ -33,7 +38,15 @@ const ProfilePage = () => {
   const getUserPlayData = async () => {
     try {
       const response = await axiosInstance.get('api/user/play/getPlayByUserID');
-      console.log(response)
+      const plays = response.data.plays
+      if (plays.length) {
+        //avg march and char
+        setUserData({
+          gamePlayed: plays.length,
+          avgMatch: 0,
+          avgCharacter: 0
+        })
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,15 +68,15 @@ const ProfilePage = () => {
           <div className={styles.gameDataContainer}>
             <fieldset>
               <legend align='center'>Game Played</legend>
-              <h3>{usertest.gamePlayed + ''}</h3>
+              <h3>{userData.gamePlayed + ''}</h3>
             </fieldset>
             <fieldset>
               <legend align='center'>Avg Match</legend>
-              <h3>{usertest.avgMatch + '%'}</h3>
+              <h3>{userData.avgMatch + '%'}</h3>
             </fieldset>
             <fieldset>
               <legend align='center'>Avg Character</legend>
-              <h3>{usertest.avgCharacter}</h3>
+              <h3>{userData.avgCharacter}</h3>
             </fieldset>
           </div>
         </div>

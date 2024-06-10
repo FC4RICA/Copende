@@ -108,12 +108,12 @@ const PlayPage = () => {
         if (isplayed) {
           const response = await axiosInstance.post('/api/user/play/updatePlay?postId=' + postId, {
             base64Image: base64image, 
-            char_num: htmlValue.length() + cssValue.length()
+            char_num: htmlValue.length + cssValue.length
           })
         } else {
           const response = await axiosInstance.post('/api/user/play/playSubmit?postId=' + postId, {
             base64Image: base64image, 
-            char_num: htmlValue.length() + cssValue.length()
+            char_num: htmlValue.length + cssValue.length
           })
         }
         console.log(response);
