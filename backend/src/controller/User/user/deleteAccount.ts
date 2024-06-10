@@ -29,7 +29,6 @@ export const deleteAccount = async (req: Request, res: Response) => {
             return;
         }else{
             res.status(404).json({message:"User Not Found"});
-            return;
         }
     } catch (error:any) {
         console.log(error.message);
