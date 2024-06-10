@@ -22,14 +22,15 @@ export const alreadyPlay = async (req: Request, res: Response) => {
         const UserID = (validToken as {userId: any}).userId;
 
         const alreadyPlay = await PlayModel.exists({userId: UserID, postId: postId});
-        const plays = await PlayModel.find({userId: UserID, postId: postId});
-        const play = await PlayModel.findOne({_id: plays});
     
         if (!alreadyPlay) {
             res.status(404).json({ message: "User doesn't play this post yet" });
             return;
         }
 
+        const plays = await PlayModel.find({userId: UserID, postId: postId});
+        const play = await PlayModel.findOne({_id: plays});
+        
         if (!play) {
             res.status(404).json({message: "play not found"});
             return;
