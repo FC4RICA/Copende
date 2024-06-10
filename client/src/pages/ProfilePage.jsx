@@ -40,11 +40,13 @@ const ProfilePage = () => {
       const response = await axiosInstance.get('api/user/play/getPlayByUserID');
       const plays = response.data.plays
       if (plays.length) {
+        const totalScore = (plays.reduce((acc, obj) => acc + obj.score, 0))/plays.length;
+        const totalCharNum = (plays.reduce((acc, obj) => acc + obj.char_num, 0))/plays.length;
         //avg march and char
         setUserData({
           gamePlayed: plays.length,
-          avgMatch: 0,
-          avgCharacter: 0
+          avgMatch: parseFloat(totalScore.toFixed(2)),
+          avgCharacter: parseFloat(totalCharNum.toFixed(2))
         })
       }
     } catch (error) {

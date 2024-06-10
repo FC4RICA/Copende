@@ -34,16 +34,16 @@ const SettingPage = () => {
   const [openAlert, setOpenAlert] = useState(false)
   const navigate = useNavigate()
   const handleDeleteAccount = async () => {
-    setOpenAlert(false)
+    setOpenAlert(false);
     try {
-      const response = axiosInstance.delete('api/user/deleteAccount');
+      const response = await axiosInstance.delete('/api/user/deleteAccount');
       console.log(response);
       navigate("/signin");
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
-  }
+  };  
 
   return(
     <>
