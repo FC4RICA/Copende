@@ -39,7 +39,6 @@ const deleteAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         }
         else {
             res.status(404).json({ message: "User Not Found" });
-            return;
         }
     }
     catch (error) {
