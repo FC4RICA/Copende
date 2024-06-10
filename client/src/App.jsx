@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         element: <PlayPage />,
       },
       {
-        path: '/play/:testId',
+        path: '/play/:postId',
         element: <PlayPage />,
       },
       {

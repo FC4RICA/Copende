@@ -6,6 +6,8 @@ import { ReflexContainer, ReflexSplitter, ReflexElement, ReflexHandle } from 're
 import { Button } from 'rsuite';
 import styles from './PlayPage.module.css';
 import html2canvas from 'html2canvas';
+import { useParams } from 'react-router-dom';
+import { axiosInstance } from '../api/axios.jsx';
 
 const post = {
   id: 0,
@@ -14,6 +16,26 @@ const post = {
 }
 
 const PlayPage = () => {
+  const [postData, setPostData] = useState({
+    image: "",
+    data: {
+      colors: []
+    }
+  })
+  const { postId } = useParams();
+  const getPostData = async () => {
+    try {
+      const response = axiosInstance.get('api/user/post/getPostByPostID?postId=' + postId);
+      console.log(response);
+      setPostData(response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getPostData();
+  }, [])
+  
   const [htmlValue, setHtmlValue] = useState('');
   const [cssValue, setCssValue] = useState('');
   const [outputValue, setOutputValue] = useState('');
